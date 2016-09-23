@@ -27,6 +27,16 @@
 	color: white !important;
 }
 
+.primary-color-btn {
+	background-color: #D1256E !important;
+	color: white !important;
+	transition: 0.3s;
+}
+
+.primary-color-btn:hover {
+	background-color: #981b4f !important;
+}
+
 .sidebar-right {
 	position: fixed;
 	top: 15px;
