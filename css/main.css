@@ -1,1 +1,42 @@
+.welcome-message {
+	position: fixed;
+	display: table;
+	top: 15px;
+	left: 15px;
+	padding: 10px 20px;
+	max-width: 500px;
+	background-color: white;
+	border-radius: 2.5px;
+	z-index: 10;
+}
 
+.pull-right {
+	float: right;
+}
+
+.shadow-medium {
+	box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.primary-color {
+	color: #D1256E;
+}
+
+.primary-color-bg {
+	background-color: #D1256E !important;
+	color: white !important;
+}
+
+.sidebar-right {
+	position: fixed;
+	top: 15px;
+	right: 15px;
+	background-color: white;
+	padding: 10px 20px;
+	border-radius: 2.5px;
+	z-index: 10;
+}
+
+.search {
+	width: 400px;
+}
