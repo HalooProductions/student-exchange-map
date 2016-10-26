@@ -11,10 +11,11 @@ $(document).ready(function () {
 		var password = $("#password").val();
 		$.ajax({
 			method: "POST",
-			url: "login.php",
+			url: "api/login.php",
 			data: {name: username, pwd: password},
-			success: function(){
-				if($response['success'] == true)
+			success: function(response){
+				var responseJSON = JSON.parse(response);
+				if(responseJSON.success)
 				{
 					window.location="index.html";
 				}

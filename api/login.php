@@ -7,7 +7,7 @@ $conn = new DB;
 $conn->connect();
 
 $user = $_POST["name"];
-$password = md5($_POST["pwd"]);
+$password = $_POST["pwd"];
 
 $response = [
 	'success' => false,

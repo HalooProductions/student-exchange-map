@@ -2,12 +2,12 @@
 
 class DB {
 	var $dbname = 'vaihtosovellus';
-	var loginName = 'root';
-	var password = '';
+	var $loginName = 'root';
+	var $password = '';
 	var $db;
 
 	function connect() {
-		$this->db = new PDO('mysql:host=localhost;dbname=' . $this->dbname . ';charset=utf8mb4', $loginName, $password);
+		$this->db = new PDO('mysql:host=localhost;dbname=' . $this->dbname . ';charset=utf8mb4', $this->loginName, $this->password);
 	}
 
 	function get($table, $options = []) {
@@ -45,13 +45,17 @@ class DB {
 
 		$result = $this->db->query($query);
 
+		$exists = false;
+
 		$exists = $result->fetchAll(PDO::FETCH_ASSOC);
 
-		if ($exists !== false) {
-			return true;
-		} else {
-			return false;
+		if ($exists) {
+			$exists = true;
+		} else if (count($exists) == 0) {
+			$exists = false;
 		}
+
+		return $exists;
 	}
 
 	function update($table, $where = [], $values = []) {
