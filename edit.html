@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="css/semantic.min.css">
+	<link rel="stylesheet" href="css/edit.css">
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<div class="ui menu">
+  <div class="item">
+    <div class="ui button">Karttanäkymään</div>
+  </div>
+  <div class="item">
+    <div class="ui primary button">Lisää koulu</div>
+  </div>
+	<div class="ui category search">
+	  <div class="ui icon input">
+	    <input class="prompt" placeholder="Search animals..." type="text">
+	    <i class="search icon"></i>
+	  </div>
+	  <div class="results"></div>
+	</div>
+</div>
+<div class="ui grid container">
+	<div class="four wide column">
+		<table class="ui fixed single line celled table">
+		  <thead>
+		    <tr><th>Name</th>
+		    <th>Status</th>
+		    <th>Description</th>
+		  </tr></thead>
+		  <tbody>
+		    <tr>
+		      <td>John</td>
+		      <td>Approved</td>
+		      <td title="This is much too long to fit I'm sorry about that">This is much too long to fit I'm sorry about that</td>
+		    </tr>
+		    <tr>
+		      <td>Jamie</td>
+		      <td>Approved</td>
+		      <td>Shorter description</td>
+		    </tr>
+		    <tr>
+		      <td>Jill</td>
+		      <td>Denied</td>
+		      <td>Shorter description</td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
+</div>
+</button>
+<div class="ui modal" id="editmodal">
+  <i class="close icon"></i>
+  <div class="header">
+    Koulu tiedot
+  </div>
+  <div class="content">
+    <div class="description">
+      A description can appear on the right
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button">Cancel</div>
+    <div class="ui button">OK</div>
+  </div>
+</div>
+<script
+	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	crossorigin="anonymous"></script>
+<script src="js/edit.js"></script>	
+<script src="js/semantic.min.js"></script>		
+</body>
+</html>
