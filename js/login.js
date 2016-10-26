@@ -10,13 +10,13 @@ $(document).ready(function () {
 		var username = $("#username").val();
 		var password = $("#password").val();
 		$.ajax({
-			type: "POST",
+			method: "POST",
 			url: "login.php",
-			data: "name"=+username+"&pwd"=+password+,
-			success: function(html){
-				if(html==true)
+			data: {name: username, pwd: password},
+			success: function(){
+				if($response['success'] == true)
 				{
-					window.location="index.html"
+					window.location="index.html";
 				}
 				else
 				{

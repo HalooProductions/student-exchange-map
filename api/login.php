@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include_once('DB.php');
 
 $conn = new DB;
@@ -14,6 +16,7 @@ $response = [
 if($conn->exists('users', ['username' => $user, 'password' => $password]))
 {
 	$response['success'] = true;
+	$_SESSION["s41pt"] = true;
 }
 
 echo(json_encode($response));
