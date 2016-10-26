@@ -2,10 +2,12 @@
 
 class DB {
 	var $dbname = 'vaihtosovellus';
+	var loginName = 'root';
+	var password = '';
 	var $db;
 
 	function connect() {
-		$this->db = new PDO('mysql:host=localhost;dbname=' . $this->dbname . ';charset=utf8mb4', 'root', '');
+		$this->db = new PDO('mysql:host=localhost;dbname=' . $this->dbname . ';charset=utf8mb4', $loginName, $password);
 	}
 
 	function get($table, $options = []) {
@@ -25,6 +27,31 @@ class DB {
 		$result = $this->db->query($query);
 
 		return $result->fetchAll(PDO::FETCH_ASSOC);
+	}
+
+	function exists($table, $options = []) {
+		$query = "SELECT * FROM $table WHERE ";
+		
+		$i = 0;
+		$len = count($options);
+		foreach ($options as $key => $option) {
+			if ($i < $len - 1) {
+				$query .= $key . ' = ' . $this->db->quote($option) . ' AND ';
+			} else {
+				$query .= $key . ' = ' . $this->db->quote($option);
+			}
+			$i++;
+		}
+
+		$result = $this->db->query($query);
+
+		$exists = $result->fetchAll(PDO::FETCH_ASSOC);
+
+		if ($exists !== false) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	function update($table, $where = [], $values = []) {
