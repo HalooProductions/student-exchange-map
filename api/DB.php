@@ -29,6 +29,31 @@ class DB {
 		return $result->fetchAll(PDO::FETCH_ASSOC);
 	}
 
+	function exists($table, $options = []) {
+		$query = "SELECT * FROM $table WHERE ";
+		
+		$i = 0;
+		$len = count($options);
+		foreach ($options as $key => $option) {
+			if ($i < $len - 1) {
+				$query .= $key . ' = ' . $this->db->quote($option) . ' AND ';
+			} else {
+				$query .= $key . ' = ' . $this->db->quote($option);
+			}
+			$i++;
+		}
+
+		$result = $this->db->query($query);
+
+		$exists = $result->fetchAll(PDO::FETCH_ASSOC);
+
+		if ($exists !== false) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	function update($table, $where = [], $values = []) {
 		$query = "UPDATE $table SET ";
 
