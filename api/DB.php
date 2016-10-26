@@ -2,10 +2,12 @@
 
 class DB {
 	var $dbname = 'vaihtosovellus';
+	var loginName = 'root';
+	var password = '';
 	var $db;
 
 	function connect() {
-		$this->db = new PDO('mysql:host=localhost;dbname=' . $this->dbname . ';charset=utf8mb4', 'root', '');
+		$this->db = new PDO('mysql:host=localhost;dbname=' . $this->dbname . ';charset=utf8mb4', $loginName, $password);
 	}
 
 	function get($table, $options = []) {
