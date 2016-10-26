@@ -12,11 +12,11 @@ $(document).ready(function () {
 		$.ajax({
 			type: "POST",
 			url: "login.php",
-			data: "name"=+username+"&pwd"=+password+,
+			data: "name="+username+"&pwd="+password,
 			success: function(html){
 				if(html==true)
 				{
-					window.location="index.html"
+					window.location="index.html";
 				}
 				else
 				{
