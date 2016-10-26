@@ -13,7 +13,7 @@ $response = [
 
 if($conn->exists('users', ['username' => $user, 'password' => $password]))
 {
-	$response['success' => true];
+	$response['success'] = true;
 }
 
 echo(json_encode($response));
