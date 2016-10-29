@@ -50,3 +50,43 @@
 .search {
 	width: 400px;
 }
+
+.centered {
+	display: table;
+	margin: 0 auto;
+}
+
+.sizes {
+	width: 350px !important;
+	margin: auto !important;
+	top: 50% !important;
+  	left: 50% !important;
+ 	transform: translate(-50%, -50%) !important;
+}
+
+.margins {
+	border: 1px solid rgba(209, 37, 110,.15);
+	border-radius: .28571429rem;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.headstyle {
+	color: #D1256E;
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
+.warning {
+	color: #D8000C;
+	text-align: center;
+}
+
+.ui.toggle.checkbox input:checked~.box:before, .ui.toggle.checkbox input:checked~label:before {
+	background-color: #D1256E !important;
+}
+
+.ui.toggle.checkbox input:focus:checked~.box:before, .ui.toggle.checkbox input:focus:checked~label:before {
+    background-color: #D1256E!important;
+}

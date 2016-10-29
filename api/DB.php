@@ -1,7 +1,7 @@
 <?php
 
 class DB {
-	var $dbname = 'vaihtosovellus';
+	var $dbname = 'kartta';
 	var $loginName = 'root';
 	var $password = '';
 	var $db;
