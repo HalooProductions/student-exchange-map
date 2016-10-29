@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 26.10.2016 klo 05:54
--- Palvelimen versio: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Oct 29, 2016 at 09:46 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,84 +17,136 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `vaihtosovellus`
+-- Database: `kartta`
 --
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `cities`
+-- Table structure for table `cities`
 --
 
-CREATE TABLE `cities` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `cities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `place_id` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `place_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `countries`
+-- Table structure for table `countries`
 --
 
-CREATE TABLE `countries` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `countries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `place_id` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `place_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `countries`
+--
+
+INSERT INTO `countries` (`id`, `name`, `place_id`) VALUES
+(1, 'Suomi', 'ChIJ3fYyS9_KgUYREKh1PNZGAQA'),
+(2, 'Ruotsi', 'ChIJ8fA1bTmyXEYRYm-tjaLruCI'),
+(3, 'Saksa', 'ChIJa76xwh5ymkcRW-WRjmtd6HU');
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `departments`
+-- Table structure for table `departments`
 --
 
-CREATE TABLE `departments` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `departments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `code` varchar(20) NOT NULL,
-  `place_id` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`id`, `name`, `code`) VALUES
+(1, 'Tietotekniikka', '0612'),
+(2, 'Sähkötekniikka', '0713'),
+(3, 'Rakennustekniikka', '0732');
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `experiences`
+-- Table structure for table `experiences`
 --
 
-CREATE TABLE `experiences` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `experiences` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `text` text NOT NULL,
-  `writer` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `writer` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `schools`
+-- Table structure for table `schools`
 --
 
-CREATE TABLE `schools` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `schools` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `place_id` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `schools`
+--
+
+INSERT INTO `schools` (`id`, `name`, `place_id`) VALUES
+(1, 'Hochschule Ostwestfalen-Lippe', 'ChIJn7IKU5pCukcROdGCKQD3FX4');
 
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `users`
+-- Table structure for table `school_has_department`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `school_has_department` (
+  `school_id` int(11) NOT NULL,
+  `department_id` int(11) NOT NULL,
+  KEY `school_id` (`school_id`),
+  KEY `department_id` (`department_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `school_has_department`
+--
+
+INSERT INTO `school_has_department` (`school_id`, `department_id`) VALUES
+(1, 2),
+(1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `display_name` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `display_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Vedos taulusta `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `display_name`) VALUES
@@ -102,79 +154,16 @@ INSERT INTO `users` (`id`, `username`, `password`, `display_name`) VALUES
 (3, 'SakeTheBous', 'ez', 'Santeri Remes');
 
 --
--- Indexes for dumped tables
+-- Constraints for dumped tables
 --
 
 --
--- Indexes for table `cities`
+-- Constraints for table `school_has_department`
 --
-ALTER TABLE `cities`
-  ADD PRIMARY KEY (`id`);
+ALTER TABLE `school_has_department`
+  ADD CONSTRAINT `school_has_department_ibfk_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`),
+  ADD CONSTRAINT `school_has_department_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
 
---
--- Indexes for table `countries`
---
-ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `departments`
---
-ALTER TABLE `departments`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `experiences`
---
-ALTER TABLE `experiences`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `schools`
---
-ALTER TABLE `schools`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cities`
---
-ALTER TABLE `cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `countries`
---
-ALTER TABLE `countries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `departments`
---
-ALTER TABLE `departments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `experiences`
---
-ALTER TABLE `experiences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `schools`
---
-ALTER TABLE `schools`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
