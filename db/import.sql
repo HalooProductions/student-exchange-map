@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2016 at 09:46 PM
--- Server version: 5.6.17
+-- Generation Time: 31.10.2016 klo 18:04
+-- Palvelimen versio: 5.6.17
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cities`
+-- Rakenne taululle `cities`
 --
 
 CREATE TABLE IF NOT EXISTS `cities` (
@@ -31,12 +31,20 @@ CREATE TABLE IF NOT EXISTS `cities` (
   `name` varchar(255) NOT NULL,
   `place_id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Vedos taulusta `cities`
+--
+
+INSERT INTO `cities` (`id`, `name`, `place_id`) VALUES
+(1, 'Regensburg', 'ChIJ9y4icpjBn0cREMs3CaQlHQQ'),
+(2, 'Kuopio', 'ChIJ88T-r4qwhEYRwPbfnn33tuc');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `countries`
+-- Rakenne taululle `countries`
 --
 
 CREATE TABLE IF NOT EXISTS `countries` (
@@ -47,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `countries` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
--- Dumping data for table `countries`
+-- Vedos taulusta `countries`
 --
 
 INSERT INTO `countries` (`id`, `name`, `place_id`) VALUES
@@ -58,7 +66,7 @@ INSERT INTO `countries` (`id`, `name`, `place_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `departments`
+-- Rakenne taululle `departments`
 --
 
 CREATE TABLE IF NOT EXISTS `departments` (
@@ -69,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `departments` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `departments`
+-- Vedos taulusta `departments`
 --
 
 INSERT INTO `departments` (`id`, `name`, `code`) VALUES
@@ -80,7 +88,7 @@ INSERT INTO `departments` (`id`, `name`, `code`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `experiences`
+-- Rakenne taululle `experiences`
 --
 
 CREATE TABLE IF NOT EXISTS `experiences` (
@@ -93,27 +101,31 @@ CREATE TABLE IF NOT EXISTS `experiences` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `schools`
+-- Rakenne taululle `schools`
 --
 
 CREATE TABLE IF NOT EXISTS `schools` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `place_id` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `country` int(11) NOT NULL,
+  `city` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `country_id` (`country`),
+  KEY `city_id` (`city`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `schools`
+-- Vedos taulusta `schools`
 --
 
-INSERT INTO `schools` (`id`, `name`, `place_id`) VALUES
-(1, 'Hochschule Ostwestfalen-Lippe', 'ChIJn7IKU5pCukcROdGCKQD3FX4');
+INSERT INTO `schools` (`id`, `name`, `place_id`, `country`, `city`) VALUES
+(1, 'Hochschule Ostwestfalen-Lippe', 'ChIJn7IKU5pCukcROdGCKQD3FX4', 3, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `school_has_department`
+-- Rakenne taululle `school_has_department`
 --
 
 CREATE TABLE IF NOT EXISTS `school_has_department` (
@@ -124,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `school_has_department` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `school_has_department`
+-- Vedos taulusta `school_has_department`
 --
 
 INSERT INTO `school_has_department` (`school_id`, `department_id`) VALUES
@@ -134,7 +146,7 @@ INSERT INTO `school_has_department` (`school_id`, `department_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Rakenne taululle `users`
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
@@ -146,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
--- Dumping data for table `users`
+-- Vedos taulusta `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `display_name`) VALUES
@@ -154,11 +166,18 @@ INSERT INTO `users` (`id`, `username`, `password`, `display_name`) VALUES
 (3, 'SakeTheBous', 'ez', 'Santeri Remes');
 
 --
--- Constraints for dumped tables
+-- Rajoitteet vedostauluille
 --
 
 --
--- Constraints for table `school_has_department`
+-- Rajoitteet taululle `schools`
+--
+ALTER TABLE `schools`
+  ADD CONSTRAINT `fk_school_city` FOREIGN KEY (`city`) REFERENCES `cities` (`id`),
+  ADD CONSTRAINT `fk_school_country` FOREIGN KEY (`country`) REFERENCES `countries` (`id`);
+
+--
+-- Rajoitteet taululle `school_has_department`
 --
 ALTER TABLE `school_has_department`
   ADD CONSTRAINT `school_has_department_ibfk_2` FOREIGN KEY (`department_id`) REFERENCES `departments` (`id`),
