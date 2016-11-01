@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once 'PHPUnit/Autoload.php';
+//require_once 'PHPUnit/Autoload.php';
 include_once(dirname(__FILE__) . '/../api/School.php');
 include_once(dirname(__FILE__) . '/../api/DB.php');
 
