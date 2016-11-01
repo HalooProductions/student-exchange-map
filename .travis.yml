@@ -8,5 +8,5 @@ php:
   - nightly
 
 before_script:
-  - mysql -e db/import.sql
+  - mysql -U db/import.sql
 script: phpunit tests/SchoolTest.php
