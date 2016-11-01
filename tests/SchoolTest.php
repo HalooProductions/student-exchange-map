@@ -11,7 +11,10 @@ $conn->connect();
 
 class SchoolTest extends TestCase
 {
-    // ...
+    /**
+    * @backupGlobals disabled
+    * @backupStaticAttributes disabled
+    */
 
     public function testCanBeNegated()
     {
