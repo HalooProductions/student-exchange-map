@@ -8,5 +8,6 @@ php:
   - nightly
 
 before_script:
-  - mysql < db/import.sql
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS kartta;'
+  - mysql kartta < db/import.sql
 script: phpunit tests/SchoolTest.php
