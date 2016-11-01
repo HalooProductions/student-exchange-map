@@ -1,11 +1,4 @@
--- phpMyAdmin SQL Dump
--- version 4.1.14
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: 31.10.2016 klo 18:04
--- Palvelimen versio: 5.6.17
--- PHP Version: 5.5.12
+CREATE DATABASE IF NOT EXISTS kartta;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
