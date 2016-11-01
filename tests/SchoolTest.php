@@ -5,9 +5,6 @@ use PHPUnit\Framework\TestCase;
 include_once(dirname(__FILE__) . '/../api/School.php');
 include_once(dirname(__FILE__) . '/../api/DB.php');
 
-$conn = new DB;
-$conn->connect();
-
 
 class SchoolTest extends TestCase
 {
@@ -18,6 +15,9 @@ class SchoolTest extends TestCase
 
     public function testCanBeNegated()
     {
+        $conn = new DB;
+        $conn->connect();
+        
         // Arrange
         $a = new School($conn);
 
