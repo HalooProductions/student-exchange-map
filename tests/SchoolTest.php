@@ -1,8 +1,8 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-include_once('../api/School.php');
-include_once('../api/DB.php');
+include_once(dirname(__FILE__) . '/../api/School.php');
+include_once(dirname(__FILE__) . '/../api/DB.php');
 
 $conn = new DB;
 $conn->connect();
