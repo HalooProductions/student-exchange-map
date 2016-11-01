@@ -17,7 +17,7 @@ class SchoolTest extends TestCase
     {
         $conn = new DB;
         $conn->connect();
-        
+
         // Arrange
         $a = new School($conn);
 
@@ -33,6 +33,6 @@ class SchoolTest extends TestCase
         $b = new School($conn);
 
         // Assert
-        $this->assertEquals('ChIJUYf0dHe6hEYRKaYg4vlkF28', $b->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first()->name);
+        $this->assertEquals('Savonia Ammattikorkeakoulu', $b->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first()->name);
     }
 }
