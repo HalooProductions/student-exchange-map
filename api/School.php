@@ -2,7 +2,8 @@
 
 include_once('Collection.php');
 
-class School {
+class School 
+{
 	var $name;
 	var $country;
 	var $city;

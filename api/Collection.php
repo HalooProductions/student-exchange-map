@@ -1,6 +1,7 @@
 <?php
 
-class Collection {
+class Collection 
+{
 	var $items = [];
 
 	function __construct($arr) {

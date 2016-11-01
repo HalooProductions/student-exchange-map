@@ -1,6 +1,7 @@
 <?php
 
-class DB {
+class DB 
+{
 	var $dbname = 'kartta';
 	var $loginName = 'root';
 	var $password = '';
