@@ -6,12 +6,14 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <div class="sidebar-right">
+    <div class="sidebar-right shadow-medium">
+      <h2>Search options</h2>
       <div class="searchbox">
+        <h4>Country</h4>
         <div class="ui search selection dropdown">
           <input name="country" type="hidden">
             <i class="dropdown icon"></i>
-            <div class="default text">Hae maata, kaupunkia tai koulua</div>
+            <div class="default text">Search for a country</div>
             <div class="menu">
             <div class="item" data-value="0"><i class="af flag"></i>Afghanistan</div>
               <div class="item" data-value="1"><i class="al flag"></i>Albania</div>
@@ -194,9 +196,35 @@
           </div>
         </div>
       </div>
+      <div class="searchbox">
+        <h4>City</h4>
+        <div class="ui search selection dropdown">
+          <input name="country" type="hidden">
+            <i class="dropdown icon"></i>
+            <div class="default text">Search for a city</div>
+            <div class="menu">
+            <div class="item" data-value="0"><i class="af flag"></i>Afghanistan</div>
+              <div class="item" data-value="1"><i class="al flag"></i>Albania</div>
+              <div class="item" data-value="2"><i class="dz flag"></i>Algeria</div>
+          </div>
+        </div>
+      </div>
+      <div class="searchbox">
+        <h4>School</h4>
+        <div class="ui search selection dropdown">
+          <input name="country" type="hidden">
+            <i class="dropdown icon"></i>
+            <div class="default text">Search for a school</div>
+            <div class="menu">
+            <div class="item" data-value="0"><i class="af flag"></i>Afghanistan</div>
+              <div class="item" data-value="1"><i class="al flag"></i>Albania</div>
+              <div class="item" data-value="2"><i class="dz flag"></i>Algeria</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U"
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U&libraries=places"
     async defer></script>
     <script
             src="https://code.jquery.com/jquery-3.1.0.min.js"

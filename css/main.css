@@ -42,7 +42,7 @@
 	top: 15px;
 	right: 15px;
 	background-color: white;
-	padding: 10px 20px;
+	padding: 10px 20px 20px 20px;
 	border-radius: 2.5px;
 	z-index: 10;
 }
@@ -89,4 +89,8 @@
 
 .ui.toggle.checkbox input:focus:checked~.box:before, .ui.toggle.checkbox input:focus:checked~label:before {
     background-color: #D1256E!important;
+}
+
+.searchbox:not(:first-child) {
+	margin-top: 10px;
 }

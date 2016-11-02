@@ -77,7 +77,7 @@ class DB
 
 		$result = $this->db->exec($query);
 
-		return $result;
+		return $this->db->lastInsertId();
 	}
 
 	function create($table, $cols = [], $values = []) {

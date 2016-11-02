@@ -4,6 +4,7 @@ include_once('Collection.php');
 
 class School 
 {
+	var $id = 0;
 	var $name;
 	var $country;
 	var $city;
@@ -25,9 +26,13 @@ class School
 		}
 	}
 
-	['name' => 'Savonia', 'place_id' => 'luljksjfdlskhj54lk']
-
 	function update($data) {
+		if ($this->id === 0) {
+			throw new Exception("Error updating school object: Trying to update a object which isnt in the database yet!");
+
+			return $this;
+		}
+
 		$checks = 0;
 		$checkLimit = count($data);
 
@@ -62,6 +67,10 @@ class School
 			throw new Exception("Error creating a new school object: Required field(s) missing!");
 		}
 
+		if (isset($data['id'])) {
+			$this->id = $data['id'];
+		}
+
 		$this->name = $data['name'];
 		$this->country = $data['country'];
 		$this->city = $data['city'];
@@ -72,11 +81,19 @@ class School
 
 	function save() {
 		// Puuttuu departmentit
-		$id = $this->conn->create(
-			'schools', 
-			['name', 'country', 'city', 'place_id'], 
-			[$this->name, $this->country, $this->city, $this->place_id]
-		);
+		if ($this->id !== 0) {
+			$id = $this->conn->update(
+				'schools', 
+				['name', 'country', 'city', 'place_id'], 
+				[$this->name, $this->country, $this->city, $this->place_id]
+			);
+		} else {
+			$id = $this->conn->create(
+				'schools', 
+				['name', 'country', 'city', 'place_id'], 
+				[$this->name, $this->country, $this->city, $this->place_id]
+			);
+		}
 
 		// Ei varma toimiiko, exceptionit olisi parempi laittaa DB classista ja ottaa kiinni täällä?
 		if ($id === 0) {
@@ -101,14 +118,3 @@ class School
 		return $returnCollection;
 	}
 }
-
-
-/*$hg = new School()->create([
-	'name' => 'Savonia Ammattikorkeakoulu',
-	'country' => 1,
-	'city' => 3,
-	'place_id' => 'qoKDSj43kasdj4k3l-w3gqw',
-	'departments' => [1, 5, 8, 3],
-])->save();
-
-$stockholm = new School($conn)->where(['place_id' => 'qoKDSj43kasdj4k3l-w3gqw'])->first();*/

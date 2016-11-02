@@ -73,6 +73,36 @@ function init () {
   initMap();
 }
 
+function findByPlaceID(place_id) {
+  var service = new google.maps.places.PlacesService(map);
+
+  service.getDetails({
+    placeId: place_id
+  }, function(place, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
+      }
+
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                  'Place ID: ' + place.place_id + '<br>' +
+                  place.formatted_address + '</div>');
+        infowindow.open(map, this);
+      });
+    }
+  });
+
+}
+
 $(document).ready(function () {
   init();
   $('.ui.dropdown').dropdown();

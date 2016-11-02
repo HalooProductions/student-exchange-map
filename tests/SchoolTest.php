@@ -35,4 +35,40 @@ class SchoolTest extends TestCase
         // Assert
         $this->assertEquals('Savonia Ammattikorkeakoulu', $b->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first()->name);
     }
+
+    public fuction testCanBeNegated()
+    {
+        $conn = new DB;
+        $conn->connect();
+
+        $a = new School($conn);
+
+        $a->create([
+            'name' => 'Savonia Ammattikoulu',
+            'country' => 1,
+            'city' => 2,
+            'place_id' => 'ajasdkljljkjklfklr',
+            'departments' => [1, 3],
+        ])->save();
+
+        $b = new School($conn);
+
+        $b->where([
+            'place_id' => 'ajasdkljljkjklfklr'
+        ])->first();
+
+        $b->update([
+            'name' => 'Kiuruveden Yläkoulu',
+            'city' => 1,
+        ])->save();
+
+        $c = new School($conn);
+
+        $c->where([
+            'place_id' => 'ajasdkljljkjklfklr'
+        ])->first();
+
+        $this->assertEquals('Kiuruveden Yläkoulu', $c->name);
+        $this->assertEquals(1, $c->city);
+    }
 }
