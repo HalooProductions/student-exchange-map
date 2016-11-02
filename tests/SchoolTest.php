@@ -13,7 +13,7 @@ class SchoolTest extends TestCase
     * @backupStaticAttributes disabled
     */
 
-    public function testCanBeNegated()
+    public function testCreate()
     {
         $conn = new DB;
         $conn->connect();
@@ -36,7 +36,7 @@ class SchoolTest extends TestCase
         $this->assertEquals('Savonia Ammattikorkeakoulu', $b->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first()->name);
     }
 
-    public function testCanBeNegated()
+    public function testUpdate()
     {
         $conn = new DB;
         $conn->connect();
