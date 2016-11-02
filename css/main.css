@@ -94,3 +94,7 @@
 .searchbox:not(:first-child) {
 	margin-top: 10px;
 }
+
+.hidemap {
+	display:none;
+}

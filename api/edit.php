@@ -5,10 +5,19 @@ $conn = new DB;
 $conn->connect();
 
 $schoolname = $_POST["schoolname"];
+$city = $_POST["city"];
+$country = $_POST["country"];
 $placeid = $_POST["placeid"];
 
+$addschool = new School($conn);
+
 try {
-	$lastid = $conn->create("schools", ["name", "place_id"], [$schoolname, $placeid]);
+	$addschool->create([
+		'name' => $schoolname,
+		'county' => $country,
+		'city' => $city,
+		'place_id' => $placeid
+	])->save();	
 } catch (Exception $e) {
-	echo $e;
+	echo $e->getMessage();
 }

@@ -73,7 +73,7 @@
   		</div>
   		<div class="field">
   			<label>Kaupunki</label>
-  			<select class="ui search dropdown">
+  			<select id="addcity" class="ui search dropdown">
   				<option value="">Valitse kaupunki</option>
   				<option value="Nuorgam">Nuorgam</option>
   				<option value="Tukholma">Tukholma</option>
@@ -82,13 +82,14 @@
   		</div>
   		<div class="field">
   		    <label>Maa</label>
-  		    <select class="ui search dropdown">
+  		    <select id="addcountry" class="ui search dropdown">
   		      <option value="">Valitse maa</option>
   		      <option value="Suomi">Suomi</option>
   		      <option value="Ruotsi">Ruotsi</option>
   		      <option value="Saksa">Saksa</option>
   		    </select>
   		  </div>
+        <div id="map" class="hidemap"></div>
   		<div class="inline field">
   		    <div class="ui toggle checkbox">
   		     	<input type="checkbox" tabindex="0" class="hidden">
@@ -224,6 +225,9 @@
 	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 	crossorigin="anonymous"></script>
 <script src="js/edit.js"></script>	
-<script src="js/semantic.min.js"></script>		
+<script src="js/semantic.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U&libraries=places"
+    async defer></script>
+<!--<script src= https://maps.googleapis.com/maps/api/place/textsearch/xml?query=restaurants+in+Sydney&key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U></script>!-->
 </body>
 </html>
