@@ -36,7 +36,7 @@ class SchoolTest extends TestCase
         $this->assertEquals('Savonia Ammattikorkeakoulu', $b->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first()->name);
     }
 
-    public fuction testCanBeNegated()
+    public function testCanBeNegated()
     {
         $conn = new DB;
         $conn->connect();
