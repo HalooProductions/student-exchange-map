@@ -25,6 +25,29 @@ class School
 		}
 	}
 
+	['name' => 'Savonia', 'place_id' => 'luljksjfdlskhj54lk']
+
+	function update($data) {
+		$checks = 0;
+		$checkLimit = count($data);
+
+		foreach ($data as $key => $value) {
+			if (in_array($key, $this->required)) {
+				$checks++;
+			}
+		}
+
+		if ($checks !== $checkLimit) {
+			throw new Exception("Error updating school object: Invalid field(s)!");
+		} else {
+			foreach ($data as $key => $value) {
+				$this->{$key} = $value;
+			}
+		}
+
+		return $this;
+	}
+
 	function create($data) {
 		$checks = 0;
 		$checkLimit = count($this->required);
@@ -35,7 +58,7 @@ class School
 			}
 		}
 
-		if ($checks != $checkLimit) {
+		if ($checks !== $checkLimit) {
 			throw new Exception("Error creating a new school object: Required field(s) missing!");
 		}
 
