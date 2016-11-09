@@ -79,6 +79,15 @@ class School
 		return $this;
 	}
 
+	function delete() {
+		if ($this->id === 0) {
+			throw new Exception("Error with deleting school object: id not found !");
+		} else {
+			$this->conn->delete("schools", $this->id);				
+		}
+
+	}
+
 	function save() {
 		// Puuttuu departmentit
 		if ($this->id !== 0) {
@@ -108,7 +117,7 @@ class School
 			throw new Exception("Error saving a new school object: Error while saving to database!");
 		}
 	}
-
+	
 	function where($params) {
 		$records = $this->conn->get('schools', $params);
 		$returnCollection = new Collection([]);
@@ -120,7 +129,7 @@ class School
 				$returnCollection->push($tmp);
 			}
 		} else {
-			throw new Exception("Error while retrieving schools: No records found in database!");			
+			throw new Exception("Error while retrieving schools: No records found in database!");		
 		}
 
 		return $returnCollection;
