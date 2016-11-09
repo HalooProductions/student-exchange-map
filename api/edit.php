@@ -9,6 +9,9 @@ $city = $_POST["city"];
 $country = $_POST["country"];
 $placeid = $_POST["placeid"];
 
+$departments = $_POST["departments"];
+$departments = json_decode("$departments", true);
+	
 $addschool = new School($conn);
 
 try {

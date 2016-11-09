@@ -59,6 +59,7 @@ $(document).ready(function(){
                 city: cityint,
                 country: countryint,
                 placeid: placeid,
+                departments: departments,
               },
               success: function(result){
                 console.log(result);
