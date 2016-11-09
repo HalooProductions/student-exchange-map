@@ -81,7 +81,6 @@ class DB
 	}
 
 	function create($table, $cols = [], $values = []) {
-		// INSERT INTO schools (name, place_id, city) VALUES ('Savonia', 'asdasd', 2)
 		$query = "INSERT INTO $table (";
 
 		$i = 0;
