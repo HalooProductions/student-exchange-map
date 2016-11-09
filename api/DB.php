@@ -81,6 +81,7 @@ class DB
 	}
 
 	function create($table, $cols = [], $values = []) {
+		// INSERT INTO schools (name, place_id, city) VALUES ('Savonia', 'asdasd', 2)
 		$query = "INSERT INTO $table (";
 
 		$i = 0;
@@ -112,5 +113,10 @@ class DB
 		$result = $this->db->exec($query);
 
 		return $this->db->lastInsertId();
+	}
+	Function delete($table, $id) {
+
+		$query = "DELETE FROM $table WHERE id = ";
+		$query .= $this->db->quote($id);
 	}
 }
