@@ -71,4 +71,41 @@ class SchoolTest extends TestCase
         $this->assertEquals('Kiuruveden Yläkoulu', $c->name);
         $this->assertEquals(1, $c->city);
     }
+
+    public function testDelete()
+    {
+        $conn = new DB;
+        $conn->connect();
+
+        $a = new School($conn);
+
+        $a->create([
+            'name' => 'Savonia Ammattikoulu',
+            'country' => 1,
+            'city' => 2,
+            'place_id' => 'asdggwp',
+            'departments' => [1, 3],
+        ])->save();
+
+        $b = new School($conn);
+        
+        $b = $b->where([
+            'place_id' => 'asdggwp'
+        ])->first();
+
+        $b->delete();
+
+        $c = new School($conn);
+        $message = "";
+        
+        try {
+            $c = $c->where([
+                'place_id' => 'asdggwp'
+            ])->first();
+        } catch (Exception $e){
+            $message = $e->getMessage();
+        }
+
+        $this->assertEquals("Error while retrieving schools: No records found in database!", $message);
+    }
 }
