@@ -81,7 +81,7 @@ class School
 
 	function delete() {
 		if ($this->id === 0) {
-			throw new Exception("Error with deleting school object: id not found !",);
+			throw new Exception("Error with deleting school object: id not found !");
 		} else {
 			$this->conn->delete("schools", $this->id);				
 		}
