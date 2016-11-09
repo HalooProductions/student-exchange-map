@@ -102,7 +102,7 @@ class SchoolTest extends TestCase
                 'place_id' => 'asdggwp'
             ])->first();
         } catch (Exception $e){
-            $message = $e=>getMessage();
+            $message = $e->getMessage();
         }
 
         $this->assertEquals('Error while retrieving schools: No records found in database!', $message);
