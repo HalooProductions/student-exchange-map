@@ -9,48 +9,60 @@ $(document).ready(function(){
 
   $("#add-school-btn").click(function(){
   	$("#addmodal").modal("show");
-
   	var schoolname = $("#addschoolname").val();
     var city = $("#addcity").val();
     var country = $("#addcountry").val();
   	var placeid = $("#addplaceid").val();
-
-  	$.ajax({
-  		method: "POST",
-  		url: "api/edit.php",
-  		data: {
-        schoolname: schoolname,
-        city: city,
-        country: country,
-        placeid: placeid,
-      }
-  	});
   });
-
   $('.ui.checkbox').checkbox();
 
   $('select.dropdown').dropdown();
 
-var map;
-var google;
-var results;
-var service;
+  $("#saveschool").on("click", function(){
+    var schoolname = $("#addschoolname").val();
+    var map;
+    var service;
+    var infowindow;
+    initialize();
+    function initialize() {
+      var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
 
+      map = new google.maps.Map(document.getElementById('map'), {
+          center: pyrmont,
+          zoom: 15
+        });
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'));
-  service = new google.maps.places.PlacesService(map);
-}
-
-
-$("#addschoolname").on("input", (function(){
-        var request = {
-       query: $("#addschoolname").val(),
-       key: "AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U",
+      var request = {
+        query: schoolname,
       };
+
+      service = new google.maps.places.PlacesService(map);
       service.textSearch(request, callback);
-      function callback(results, status){
-        console.log(results);
-      }
-    }));
+    }
+
+    function callback(results, status) {
+      if (status == google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          var place = results[i];
+        }
+          var schoolname = $("#addschoolname").val();
+          var city = $("#addcity").val();
+          var country = $("#addcountry").val();
+          var placeid = results[0].place_id;
+      }   
+    }
+    if (schoolname != '' && city != '' && country != '' && placeid != '')
+    {
+      $.ajax({
+        method: "POST",
+        url: "api/edit.php",
+        data: {
+          schoolname: schoolname,
+          city: city,
+          country: country,
+          placeid: placeid,
+        }
+      });
+    }
+  });
 });
