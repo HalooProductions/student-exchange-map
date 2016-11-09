@@ -5,6 +5,20 @@ $(document).ready(function(){
     $('#city-input').dropdown("set selected", $(this).data('city'));
     $('.ui.dropdown').dropdown('refresh');
     $('#school-input').val($(this).data("school"));
+
+    var schoolname = $('#school-input').val();
+    var country = $('#city-input').val();
+    var city = $('#country-input').val();
+
+    $.ajax({
+      method: "POST",
+      url : "api/edit.php",
+      data: {
+        schoolname: schoolname,
+        city: city,
+        country: country,
+      }
+    })
   });
 
   $("#add-school-btn").click(function(){
@@ -15,7 +29,7 @@ $(document).ready(function(){
     var country = $("#addcountry").val();
   	var placeid = $("#addplaceid").val();
 
-  	$.ajax({
+  	/*$.ajax({
   		method: "POST",
   		url: "api/edit.php",
   		data: {
@@ -24,7 +38,9 @@ $(document).ready(function(){
         country: country,
         placeid: placeid,
       }
-  	});
+  	});*/
+
+
   });
 
   $('.ui.checkbox').checkbox();
