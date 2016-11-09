@@ -96,6 +96,7 @@ class SchoolTest extends TestCase
         $b->delete();
 
         $c = new School($conn);
+        $message = "";
         
         try {
             $c->where([
