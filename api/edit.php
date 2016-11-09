@@ -1,6 +1,6 @@
 <?php
 include_once('DB.php');
-
+include_once('School.php');
 $conn = new DB;
 $conn->connect();
 
@@ -14,7 +14,7 @@ $addschool = new School($conn);
 try {
 	$addschool->create([
 		'name' => $schoolname,
-		'county' => $country,
+		'country' => $country,
 		'city' => $city,
 		'place_id' => $placeid
 	])->save();	

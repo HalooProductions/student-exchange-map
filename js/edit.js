@@ -9,16 +9,15 @@ $(document).ready(function(){
 
   $("#add-school-btn").click(function(){
   	$("#addmodal").modal("show");
-  	var schoolname = $("#addschoolname").val();
-    var city = $("#addcity").val();
-    var country = $("#addcountry").val();
-  	var placeid = $("#addplaceid").val();
   });
   $('.ui.checkbox').checkbox();
 
   $('select.dropdown').dropdown();
 
   $("#saveschool").on("click", function(){
+
+    var departments = $.map($('input[name="departments"]:checked'), function(c){return c.value; });
+
     var schoolname = $("#addschoolname").val();
     var map;
     var service;
@@ -42,27 +41,31 @@ $(document).ready(function(){
 
     function callback(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
-          var place = results[i];
-        }
+
           var schoolname = $("#addschoolname").val();
           var city = $("#addcity").val();
           var country = $("#addcountry").val();
           var placeid = results[0].place_id;
+
+          var cityint = parseInt(city);
+          var countryint = parseInt(country);
+          if (schoolname != '' && city != '' && country != '' && placeid != '')
+          {
+            $.ajax({
+              method: "POST",
+              url: "api/edit.php",
+              data: {
+                schoolname: schoolname,
+                city: cityint,
+                country: countryint,
+                placeid: placeid,
+              },
+              success: function(result){
+                console.log(result);
+              }
+            });
+          }
       }   
-    }
-    if (schoolname != '' && city != '' && country != '' && placeid != '')
-    {
-      $.ajax({
-        method: "POST",
-        url: "api/edit.php",
-        data: {
-          schoolname: schoolname,
-          city: city,
-          country: country,
-          placeid: placeid,
-        }
-      });
     }
   });
 });
