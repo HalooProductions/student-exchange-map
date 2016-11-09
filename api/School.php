@@ -84,8 +84,16 @@ class School
 		if ($this->id !== 0) {
 			$id = $this->conn->update(
 				'schools', 
-				['name', 'country', 'city', 'place_id'], 
-				[$this->name, $this->country, $this->city, $this->place_id]
+				[
+					'col' => 'id',
+					'val' => $this->id
+				], 
+				[
+					'name' => $this->name, 
+					'country' => $this->country, 
+					'city' => $this->city, 
+					'place_id' => $this->place_id
+				]
 			);
 		} else {
 			$id = $this->conn->create(
