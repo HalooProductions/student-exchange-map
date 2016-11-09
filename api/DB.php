@@ -114,8 +114,8 @@ class DB
 		return $this->db->lastInsertId();
 	}
 	Function delete($table, $id) {
-
 		$query = "DELETE FROM $table WHERE id = ";
 		$query .= $this->db->quote($id);
+		$result = $this->db->exec($query);
 	}
 }

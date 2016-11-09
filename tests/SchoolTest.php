@@ -99,13 +99,13 @@ class SchoolTest extends TestCase
         $message = "";
         
         try {
-            $c->where([
+            $c = $c->where([
                 'place_id' => 'asdggwp'
             ])->first();
         } catch (Exception $e){
             $message = $e->getMessage();
         }
 
-        $this->assertEquals('Error while retrieving schools: No records found in database!', $message);
+        $this->assertEquals("Error while retrieving schools: No records found in database!", $message);
     }
 }
