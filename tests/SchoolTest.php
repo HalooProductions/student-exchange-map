@@ -53,7 +53,7 @@ class SchoolTest extends TestCase
 
         $b = new School($conn);
 
-        $b->where([
+        $b = $b->where([
             'place_id' => 'ajasdkljljkjklfklr'
         ])->first();
 
@@ -64,7 +64,7 @@ class SchoolTest extends TestCase
 
         $c = new School($conn);
 
-        $c->where([
+        $c = $c->where([
             'place_id' => 'ajasdkljljkjklfklr'
         ])->first();
 
