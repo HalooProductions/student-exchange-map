@@ -89,7 +89,7 @@ class SchoolTest extends TestCase
 
         $b = new School($conn);
         
-        $b->where([
+        $b = $b->where([
             'place_id' => 'asdggwp'
         ])->first();
 
