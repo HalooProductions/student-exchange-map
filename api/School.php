@@ -9,6 +9,7 @@ class School
 	var $country;
 	var $city;
 	var $place_id;
+	var $departments;
 	var $conn;
 
 	protected $required = [
@@ -36,6 +37,11 @@ class School
 		$checks = 0;
 		$checkLimit = count($data);
 
+		if (isset($data['departments'])) {
+			$checkLimit--;
+		}
+		
+
 		foreach ($data as $key => $value) {
 			if (in_array($key, $this->required)) {
 				$checks++;
@@ -46,9 +52,17 @@ class School
 			throw new Exception("Error updating school object: Invalid field(s)!");
 		} else {
 			foreach ($data as $key => $value) {
+				if ($key === 'departments') {
+					foreach ($value as $k => $val) {
+						$value[$k] = strval($val);
+					}
+				}
+
 				$this->{$key} = $value;
 			}
 		}
+
+		//var_dump($this);
 
 		return $this;
 	}
@@ -76,6 +90,10 @@ class School
 		$this->city = $data['city'];
 		$this->place_id = $data['place_id'];
 
+		if (isset($data['departments'])) {
+			$this->departments = $data['departments'];
+		}
+
 		return $this;
 	}
 
@@ -83,7 +101,8 @@ class School
 		if ($this->id === 0) {
 			throw new Exception("Error with deleting school object: id not found !");
 		} else {
-			$this->conn->delete("schools", $this->id);				
+			$this->conn->delete("schools", $this->id);
+			$this->conn->delete("school_has_department", $this->id, "school_id");		
 		}
 
 	}
@@ -104,12 +123,30 @@ class School
 					'place_id' => $this->place_id
 				]
 			);
+
+			$this->conn->delete('school_has_department', $this->id, 'school_id');
+			
+			foreach ($this->departments as $key => $department) {
+				$this->conn->create(
+					'school_has_department', 
+					['school_id', 'department_id'],
+					[$this->id, $department]
+				);
+			}
 		} else {
 			$id = $this->conn->create(
 				'schools', 
 				['name', 'country', 'city', 'place_id'], 
 				[$this->name, $this->country, $this->city, $this->place_id]
 			);
+
+			foreach ($this->departments as $key => $department) {
+				$this->conn->create(
+					'school_has_department', 
+					['school_id', 'department_id'],
+					[$id, $department]
+				);
+			}
 		}
 
 		// Ei varma toimiiko, exceptionit olisi parempi laittaa DB classista ja ottaa kiinni täällä?
@@ -126,6 +163,9 @@ class School
 			foreach ($records as $key => $record) {
 				$tmp = new School($this->conn);
 				$tmp->create($record);
+				$departments = $this->conn->get('school_has_department', ['school_id' => $record['id']]);				
+				$departments_plucked = array_column($departments, 'department_id');
+				$tmp->update(['departments' => $departments_plucked]);
 				$returnCollection->push($tmp);
 			}
 		} else {
