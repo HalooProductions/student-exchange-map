@@ -10,8 +10,9 @@ $country = $_POST["country"];
 $placeid = $_POST["placeid"];
 
 $departments = $_POST["departments"];
-$departments = json_decode("$departments", true);
-	
+var_dump($departments);
+$size = count($departments);
+
 $addschool = new School($conn);
 
 try {
@@ -19,7 +20,8 @@ try {
 		'name' => $schoolname,
 		'country' => $country,
 		'city' => $city,
-		'place_id' => $placeid
+		'place_id' => $placeid,
+		'departments' => $departments,
 	])->save();	
 } catch (Exception $e) {
 	echo $e->getMessage();

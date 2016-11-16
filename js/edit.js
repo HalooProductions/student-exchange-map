@@ -23,8 +23,6 @@ $(document).ready(function(){
 
   $("#add-school-btn").click(function(){
   	$("#addmodal").modal("show");
-<<<<<<< HEAD
-=======
 
   	var schoolname = $("#addschoolname").val();
     var city = $("#addcity").val();
@@ -41,9 +39,6 @@ $(document).ready(function(){
         placeid: placeid,
       }
   	});*/
-
-
->>>>>>> editFeature
   });
   $('.ui.checkbox').checkbox();
 
@@ -59,12 +54,8 @@ $(document).ready(function(){
     var infowindow;
     initialize();
     function initialize() {
-      var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
 
-      map = new google.maps.Map(document.getElementById('map'), {
-          center: pyrmont,
-          zoom: 15
-        });
+      map = new google.maps.Map(document.getElementById('map'));
 
       var request = {
         query: schoolname,
@@ -76,7 +67,7 @@ $(document).ready(function(){
 
     function callback(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
-
+          console.log(results);
           var schoolname = $("#addschoolname").val();
           var city = $("#addcity").val();
           var country = $("#addcountry").val();

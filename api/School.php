@@ -4,13 +4,13 @@ include_once('Collection.php');
 
 class School 
 {
-	var $id = 0;
-	var $name;
-	var $country;
-	var $city;
-	var $place_id;
-	var $departments;
-	var $conn;
+	public $id = 0;
+	public $name;
+	public $country;
+	public $city;
+	public $place_id;
+	public $departments;
+	private $conn;
 
 	protected $required = [
 		'name',
@@ -101,8 +101,8 @@ class School
 		if ($this->id === 0) {
 			throw new Exception("Error with deleting school object: id not found !");
 		} else {
-			$this->conn->delete("schools", $this->id);
 			$this->conn->delete("school_has_department", $this->id, "school_id");		
+			$this->conn->delete("schools", $this->id);
 		}
 
 	}
@@ -167,6 +167,36 @@ class School
 				$departments_plucked = array_column($departments, 'department_id');
 				$tmp->update(['departments' => $departments_plucked]);
 				$returnCollection->push($tmp);
+			}
+		} else {
+			throw new Exception("Error while retrieving schools: No records found in database!");		
+		}
+
+		return $returnCollection;
+	}
+
+	function get($params) {
+		$records = $this->conn->get('schools', $params);
+		$returnCollection = new Collection([]);
+		if(count($records) > 0) {
+			foreach ($records as $key => $record) {
+				$tmp = new School($this->conn);
+				$tmp->create($record);
+				$departments = $this->conn->get('school_has_department', ['school_id' => $record['id']]);			
+				$departments_plucked = array_column($departments, 'department_id');
+				$tmp->update(['departments' => $departments_plucked]);
+				$tmpcity = $this->conn->get('cities', ['id' => $tmp->city]);
+				$tmpcountry = $this->conn->get('countries', ['id' => $tmp->country]);
+				
+				$fixedtmp = array(
+					"id" => $tmp->id,
+					"name" => $tmp->name,
+					"country" => $tmpcountry[0]['name'],
+					"city" => $tmpcity[0]['name'],
+					"place_id" => $tmp->place_id,
+					"departments" => $tmp->departments,
+					);
+				$returnCollection->push($fixedtmp);
 			}
 		} else {
 			throw new Exception("Error while retrieving schools: No records found in database!");		
