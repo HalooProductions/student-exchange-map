@@ -28,9 +28,3 @@ class Collection
 		return $this;
 	}
 }
-
-/*$asd = new Collection();
-
-$asd->each(function($item) {
-	$item->save();
-});*/
