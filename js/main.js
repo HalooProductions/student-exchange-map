@@ -10,7 +10,7 @@ var styles = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#1d2c4d"
+        "color": "#b3e6ba"
       }
     ]
   },
@@ -18,7 +18,7 @@ var styles = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#8ec3b9"
+        "color": "#FFFFFF"
       }
     ]
   },
@@ -26,7 +26,7 @@ var styles = [
     "elementType": "labels.text.stroke",
     "stylers": [
       {
-        "color": "#1a3646"
+        "color": "#000000"
       }
     ]
   },
@@ -35,7 +35,7 @@ var styles = [
     "elementType": "geometry.stroke",
     "stylers": [
       {
-        "color": "#4b6878"
+        "color": "#eeeeee"
       }
     ]
   },
@@ -44,7 +44,7 @@ var styles = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#64779e"
+        "color": "#eeeeee"
       }
     ]
   },
@@ -53,7 +53,7 @@ var styles = [
     "elementType": "geometry.stroke",
     "stylers": [
       {
-        "color": "#4b6878"
+        "color": "#eeeeee"
       }
     ]
   },
@@ -62,7 +62,7 @@ var styles = [
     "elementType": "geometry.stroke",
     "stylers": [
       {
-        "color": "#334e87"
+        "color": "#eeeeee"
       }
     ]
   },
@@ -71,7 +71,7 @@ var styles = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#023e58"
+        "color": "#D1256E"
       }
     ]
   },
@@ -98,7 +98,7 @@ var styles = [
     "elementType": "labels.text.stroke",
     "stylers": [
       {
-        "color": "#1d2c4d"
+        "color": "#000000"
       }
     ]
   },
@@ -125,7 +125,7 @@ var styles = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#304a7d"
+        "color": "#000000"
       }
     ]
   },
@@ -134,7 +134,7 @@ var styles = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#98a5be"
+        "color": "#000000"
       }
     ]
   },
@@ -224,7 +224,7 @@ var styles = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#0e1626"
+        "color": "#FFFFFF"
       }
     ]
   },
@@ -233,7 +233,7 @@ var styles = [
     "elementType": "labels.text.fill",
     "stylers": [
       {
-        "color": "#4e6d70"
+        "color": "#FFFFFF"
       }
     ]
   },

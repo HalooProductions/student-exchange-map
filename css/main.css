@@ -22,6 +22,8 @@
 
 .controls {
 	padding-top: 20px;
+	padding-left: 5%;
+	padding-right: 5%;
 }
 
 .controls-container {
@@ -122,6 +124,22 @@
 	margin-top: 10px;
 }
 
+
 .hidemap {
 	display:none;
+}
+
+.item{
+	display: inline-block;
+	text-align: center;
+	float: left;
+
+}
+@media(max-width: 568px) {
+	.map {
+    max-height: 40%;
+  }
+	.logo-img {
+    width: 75px !important;
+}
 }
