@@ -9,6 +9,7 @@ class School
 	var $country;
 	var $city;
 	var $place_id;
+	var $departments;
 	var $conn;
 
 	protected $required = [
@@ -76,6 +77,10 @@ class School
 		$this->city = $data['city'];
 		$this->place_id = $data['place_id'];
 
+		if (isset($data['departments'])) {
+			$this->departments = $data['departments'];
+		}
+
 		return $this;
 	}
 
@@ -104,12 +109,30 @@ class School
 					'place_id' => $this->place_id
 				]
 			);
+
+			$this->conn->delete('school_has_department', $id, 'school_id');
+			
+			foreach ($this->departments as $key => $department) {
+				$this->conn->create(
+					'school_has_department', 
+					['school_id', 'department_id'],
+					[$id, $department]
+				);
+			}
 		} else {
 			$id = $this->conn->create(
 				'schools', 
 				['name', 'country', 'city', 'place_id'], 
 				[$this->name, $this->country, $this->city, $this->place_id]
 			);
+
+			foreach ($this->departments as $key => $department) {
+				$this->conn->create(
+					'school_has_department', 
+					['school_id', 'department_id'],
+					[$id, $department]
+				);
+			}
 		}
 
 		// Ei varma toimiiko, exceptionit olisi parempi laittaa DB classista ja ottaa kiinni täällä?
