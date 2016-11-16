@@ -23,27 +23,12 @@ $(document).ready(function(){
 
   $("#add-school-btn").click(function(){
   	$("#addmodal").modal("show");
-<<<<<<< HEAD
-=======
 
   	var schoolname = $("#addschoolname").val();
     var city = $("#addcity").val();
     var country = $("#addcountry").val();
   	var placeid = $("#addplaceid").val();
 
-  	/*$.ajax({
-  		method: "POST",
-  		url: "api/edit.php",
-  		data: {
-        schoolname: schoolname,
-        city: city,
-        country: country,
-        placeid: placeid,
-      }
-  	});*/
-
-
->>>>>>> editFeature
   });
   $('.ui.checkbox').checkbox();
 
