@@ -37,6 +37,11 @@ class School
 		$checks = 0;
 		$checkLimit = count($data);
 
+		if (isset($data['departments'])) {
+			$checkLimit--;
+		}
+		
+
 		foreach ($data as $key => $value) {
 			if (in_array($key, $this->required)) {
 				$checks++;
@@ -47,9 +52,17 @@ class School
 			throw new Exception("Error updating school object: Invalid field(s)!");
 		} else {
 			foreach ($data as $key => $value) {
+				if ($key === 'departments') {
+					foreach ($value as $k => $val) {
+						$value[$k] = strval($val);
+					}
+				}
+
 				$this->{$key} = $value;
 			}
 		}
+
+		//var_dump($this);
 
 		return $this;
 	}
@@ -88,7 +101,8 @@ class School
 		if ($this->id === 0) {
 			throw new Exception("Error with deleting school object: id not found !");
 		} else {
-			$this->conn->delete("schools", $this->id);				
+			$this->conn->delete("schools", $this->id);
+			$this->conn->delete("school_has_department", $this->id, "school_id");		
 		}
 
 	}
@@ -110,13 +124,13 @@ class School
 				]
 			);
 
-			$this->conn->delete('school_has_department', $id, 'school_id');
+			$this->conn->delete('school_has_department', $this->id, 'school_id');
 			
 			foreach ($this->departments as $key => $department) {
 				$this->conn->create(
 					'school_has_department', 
 					['school_id', 'department_id'],
-					[$id, $department]
+					[$this->id, $department]
 				);
 			}
 		} else {
@@ -149,6 +163,9 @@ class School
 			foreach ($records as $key => $record) {
 				$tmp = new School($this->conn);
 				$tmp->create($record);
+				$departments = $this->conn->get('school_has_department', ['school_id' => $record['id']]);				
+				$departments_plucked = array_column($departments, 'department_id');
+				$tmp->update(['departments' => $departments_plucked]);
 				$returnCollection->push($tmp);
 			}
 		} else {
