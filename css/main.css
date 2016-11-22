@@ -133,13 +133,14 @@
 	display: inline-block;
 	text-align: center;
 	float: left;
-
 }
+
 @media(max-width: 568px) {
 	.map {
-    max-height: 40%;
-  }
+    	max-height: 40%;
+  	}
+
 	.logo-img {
-    width: 75px !important;
-}
+	    width: 75px !important;
+	}
 }
