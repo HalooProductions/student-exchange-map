@@ -29,16 +29,6 @@ $(document).ready(function(){
     var country = $("#addcountry").val();
   	var placeid = $("#addplaceid").val();
 
-  	/*$.ajax({
-  		method: "POST",
-  		url: "api/edit.php",
-  		data: {
-        schoolname: schoolname,
-        city: city,
-        country: country,
-        placeid: placeid,
-      }
-  	});*/
   });
   $('.ui.checkbox').checkbox();
 
