@@ -6,30 +6,13 @@ $(document).ready(function(){
     $('.ui.dropdown').dropdown('refresh');
     $('#school-input').val($(this).data("school"));
 
-    var schoolname = $('#school-input').val();
-    var country = $('#city-input').val();
-    var city = $('#country-input').val();
 
-    $.ajax({
-      method: "POST",
-      url : "api/edit.php",
-      data: {
-        schoolname: schoolname,
-        city: city,
-        country: country,
-      }
-    })
   });
 
   $("#add-school-btn").click(function(){
   	$("#addmodal").modal("show");
-
-  	var schoolname = $("#addschoolname").val();
-    var city = $("#addcity").val();
-    var country = $("#addcountry").val();
-  	var placeid = $("#addplaceid").val();
-
   });
+
   $('.ui.checkbox').checkbox();
 
   $('select.dropdown').dropdown();
@@ -65,6 +48,8 @@ $(document).ready(function(){
 
           var cityint = parseInt(city);
           var countryint = parseInt(country);
+          console.log(city);
+          console.log(country);
           if (schoolname != '' && city != '' && country != '' && placeid != '')
           {
             $.ajax({
@@ -76,9 +61,10 @@ $(document).ready(function(){
                 country: countryint,
                 placeid: placeid,
                 departments: departments,
+                action: 0
               },
               success: function(result){
-                console.log(result);
+                $("#addmodal").modal("hide");
               }
             });
           }
@@ -86,3 +72,4 @@ $(document).ready(function(){
     }
   });
 });
+// ajax action 0:luominen, 1:edit, 2:delete
