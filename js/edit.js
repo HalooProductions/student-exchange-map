@@ -5,9 +5,50 @@ $(document).ready(function(){
     $('#city-input').dropdown("set selected", $(this).data('city'));
     $('.ui.dropdown').dropdown('refresh');
     $('#school-input').val($(this).data("school"));
+    var departments = [];
+    departments = $(this).data('departments').split(",");
+    var deplength = departments.length;
 
+    for (var i = 1; i < 9; i++) {
+      $("#editmodal .checkbox").find('[value=' + [i] + ']').prop("checked", false);
+    }
+
+    for (var i = 0; i < deplength; i++) {
+      $("#editmodal .checkbox").find('[value=' + departments[i] + ']').prop("checked", true);
+      console.log($("#editmodal .checkbox").find('[value=' + departments[i] + ']'));
+    }
+
+    var schoolname = $(this).data('school');
+    var city = $(this).data('city');
+    var country = $(this).data('country');
 
   });
+
+  $("#save-edit").click(function(){
+    var schoolname = $(this).data('school');
+    var city = $(this).data('city');
+    var country = $(this).data('country');
+    var placeid = $(this).data('placeid');
+
+    var cityint = parseInt(city);
+    var countryint = parseInt(country);
+
+    $.ajax({
+      method: "POST",
+      url: "api/edit.php",
+      data: {
+        schoolname: schoolname,
+        city: cityint,
+        country: countryint,
+        placeid: placeid,
+        departments: departments,
+        action: 1
+      },
+      success: function(result){
+        $("#addmodal").modal("hide");
+      }
+    });
+  })
 
   $("#add-school-btn").click(function(){
   	$("#addmodal").modal("show");
@@ -17,7 +58,7 @@ $(document).ready(function(){
 
   $('select.dropdown').dropdown();
 
-  $("#saveschool").on("click", function(){
+  $("#saveschool").click(function(){
 
     var departments = $.map($('input[name="departments"]:checked'), function(c){return c.value; });
 

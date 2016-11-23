@@ -14,7 +14,7 @@ try {
 	$errors = 'Virhe tietojenkäsittelyssä';
 }
 
-if($action == 0)
+if($action == 0 || $action == 1)
 {
 	try {
 		$schoolname = $request->input('schoolname');
@@ -46,23 +46,37 @@ if($action == 0)
 		$errors = 'Virhe tietojenkäsittelyssä.';	
 	}
 
-	$addschool = new School($conn);
-
-	try {
-		$addschool->create([
-			'name' => $schoolname,
-			'country' => $country,
-			'city' => $city,
-			'place_id' => $placeid,
-			'departments' => $departments,
-		])->save();	
-	} catch (Exception $e) {
-		echo $e->getMessage();
+	if($action == 0)
+	{
+		$addschool = new School($conn);
+		try {
+			$addschool->create([
+				'name' => $schoolname,
+				'country' => $country,
+				'city' => $city,
+				'place_id' => $placeid,
+				'departments' => $departments,
+			])->save();	
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
 	}
-}
-else if($action == 1)
-{
-	
+	else if($action == 1)
+	{
+		echo 'täällä';
+		$updateschool = new School($conn);
+		try {
+			$addschool->update([
+				'name' => $schoolname,
+				'country' => $country,
+				'city' => $city,
+				'place_id' => $placeid,
+				'departments' => $departments,
+			])->save();	
+		} catch (Exception $e) {
+			echo $e->getMessage();
+		}
+	}
 }
 else if($action == 2)
 {
