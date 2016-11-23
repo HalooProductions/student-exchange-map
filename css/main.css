@@ -144,3 +144,9 @@
 	    width: 75px !important;
 	}
 }
+@media(max-width: 330px) {
+	.item {
+		margin-right: 0px !important;
+		margin-left: 0px !important;
+  	}
+}

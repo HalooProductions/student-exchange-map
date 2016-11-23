@@ -10,7 +10,7 @@ var styles = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#b3e6ba"
+        "color": "#D1256E"
       }
     ]
   },
@@ -59,10 +59,10 @@ var styles = [
   },
   {
     "featureType": "landscape.man_made",
-    "elementType": "geometry.stroke",
+    "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#eeeeee"
+        "color": "#ad1f5a"
       }
     ]
   },
@@ -80,7 +80,7 @@ var styles = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#283d6a"
+        "color": "#ad1f5a"
       }
     ]
   },
@@ -107,7 +107,7 @@ var styles = [
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#023e58"
+        "color": "#D1256E"
       }
     ]
   },
@@ -206,7 +206,7 @@ var styles = [
     "elementType": "geometry.fill",
     "stylers": [
       {
-        "color": "#283d6a"
+        "color": "#D1256E"
       }
     ]
   },
@@ -215,7 +215,7 @@ var styles = [
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#3a4762"
+        "color": "#ad1f5a"
       }
     ]
   },
@@ -276,11 +276,13 @@ var mapOptions = {
 var map;
 var google;
 
+
 function initMap () {
   // Create a map object and specify the DOM element for display.
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
   $('.controls').height(($(window).height() / 3) * 1 - headerHeight);
 }
+
 
 function focusCountry (index) {
   $.getJSON('data/countries.json', function (countries) {
@@ -305,7 +307,7 @@ function init () {
   map = $("#map");
   map.height(settings.viewHeight);
   initMap();
-}
+  }
 
 function findByPlaceID(place_id) {
   var service = new google.maps.places.PlacesService(map);
@@ -319,11 +321,24 @@ function findByPlaceID(place_id) {
         position: place.geometry.location
       });
 
+      var contentString =
+      '<h3>Sydney College</h3>'+
+      '<p>Australia, Sydney</p>'+
+      '<button class="ui button">Stories</button>'
+      ;
+
+      var infowindow = new google.maps.InfoWindow({
+          content: contentString
+      });
+
+      infowindow.open(map, marker);
+
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
+        map.setZoom(5);
       } else {
         map.setCenter(place.geometry.location);
-        map.setZoom(17);
+        map.setZoom(5);
       }
 
       google.maps.event.addListener(marker, 'click', function() {
