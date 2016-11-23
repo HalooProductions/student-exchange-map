@@ -46,7 +46,7 @@
               <td><?= $school['name'] ?></td>
               <td>
                 <div class="centered">
-                  <button class="ui button yellow school-edit-btn" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
+                  <button class="ui button yellow school-edit-btn" data-id="<?= $school['id'] ?>" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
                   <button class="ui button red">Poista</button>
                 </div>
               </td>
@@ -146,65 +146,64 @@
         <label>Kaupunki</label>
         <select id="city-input" class="ui search dropdown">
           <option value="">Valitse kaupunki</option>
-          <option value="Nuorgam">Nuorgam</option>
-          <option value="Tukholma">Tukholma</option>
-          <option value="Regensburg">Regensburg</option>
+          <option value="1">Regensburg</option>
+          <option value="2">Kuopio</option>
         </select>
       </div>
       <div class="field">
           <label>Maa</label>
           <select id="country-input" class="ui search dropdown">
             <option value="">Valitse maa</option>
-            <option value="Suomi">Suomi</option>
-            <option value="Ruotsi">Ruotsi</option>
-            <option value="Saksa">Saksa</option>
+            <option value="1">Suomi</option>
+            <option value="2">Ruotsi</option>
+            <option value="3">Saksa</option>
           </select>
         </div>
       <div class="inline field">
-          <div id="department-input" class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="1" checked="false">
+          <div class="ui toggle checkbox">
+            <input type="checkbox" tabindex="0" class="hidden" value="1" name="departments">
             <label>Energiatekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="2" checked="false">
+            <input type="checkbox" tabindex="0" class="hidden" value="2" name="departments">
             <label>Ympäristötekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="3" checked="false">
+            <input type="checkbox" tabindex="0" class="hidden" value="3" name="departments">
             <label>Industrial Management</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="4" checked="false">
+            <input type="checkbox" tabindex="0" class="hidden" value="4" name="departments">
             <label>Konetekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="5" checked="false">
+            <input type="checkbox" tabindex="0" class="hidden" value="5" name="departments">
             <label>Rakennusarkkitehti</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="6" checked="false">
+            <input type="checkbox" tabindex="0" class="hidden" value="6" name="departments">
             <label>Rakennustekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="7" checked="false">
+            <input type="checkbox" tabindex="0" class="hidden" value="7" name="departments">
             <label>Sähkötekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="8" checked="false">
+            <input type="checkbox" tabindex="0" class="hidden" value="8" name="departments">
             <label>Tietotekniikka</label>
         </div>
       </div>

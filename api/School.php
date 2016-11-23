@@ -28,6 +28,7 @@ class School
 	}
 
 	function update($data) {
+		var_dump($data);
 		if ($this->id === 0) {
 			throw new Exception("Error updating school object: Trying to update a object which isnt in the database yet!");
 
@@ -40,7 +41,9 @@ class School
 		if (isset($data['departments'])) {
 			$checkLimit--;
 		}
-		
+		if (isset($data['id'])) {
+			$checkLimit--;
+		}
 
 		foreach ($data as $key => $value) {
 			if (in_array($key, $this->required)) {
@@ -57,8 +60,10 @@ class School
 						$value[$k] = strval($val);
 					}
 				}
-
-				$this->{$key} = $value;
+				if($key != 'id')
+				{
+					$this->{$key} = $value;	
+				}
 			}
 		}
 

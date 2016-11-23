@@ -63,10 +63,20 @@ if($action == 0 || $action == 1)
 	}
 	else if($action == 1)
 	{
-		echo 'täällä';
-		$updateschool = new School($conn);
 		try {
-			$addschool->update([
+			$schoolid = $request->input('schoolid');
+		} catch (Exception $e) {
+			$errors = 'Virhe tietojenkäsittelyssä.';	
+		}
+		$schoolid = intval($schoolid);
+		$updateschool = new School($conn);
+		$updateschool = $updateschool->where([
+			'id' => $schoolid
+			])->first();
+
+		try {
+			$updateschool->update([
+				'id' => $schoolid,
 				'name' => $schoolname,
 				'country' => $country,
 				'city' => $city,

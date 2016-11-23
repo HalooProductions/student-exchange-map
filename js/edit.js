@@ -1,11 +1,16 @@
 $(document).ready(function(){
+  var departments = [];
+  var schoolid;
+  var schoolname;
+  var city;
+  var country;
+  var placeid;
   $(".school-edit-btn").click(function(){
     $('#editmodal').modal('show');
     $('#country-input').dropdown("set selected", $(this).data('country'));
     $('#city-input').dropdown("set selected", $(this).data('city'));
     $('.ui.dropdown').dropdown('refresh');
     $('#school-input').val($(this).data("school"));
-    var departments = [];
     departments = $(this).data('departments').split(",");
     var deplength = departments.length;
 
@@ -17,19 +22,22 @@ $(document).ready(function(){
       $("#editmodal .checkbox").find('[value=' + departments[i] + ']').prop("checked", true);
       console.log($("#editmodal .checkbox").find('[value=' + departments[i] + ']'));
     }
-
-    var schoolname = $(this).data('school');
-    var city = $(this).data('city');
-    var country = $(this).data('country');
-
+    schoolid = $(this).data('id');
+    schoolname = $(this).data('school');
+    city = $(this).data('city');
+    country = $(this).data('country');
+    placeid = $(this).data('placeid');
   });
 
   $("#save-edit").click(function(){
-    var schoolname = $(this).data('school');
-    var city = $(this).data('city');
-    var country = $(this).data('country');
-    var placeid = $(this).data('placeid');
-
+    var departments1 = [];
+    console.log(city);
+    console.log(country);
+    schoolname = $("#school-input").val();
+    city = $("#city-input").val();
+    country = $("#country-input").val();
+    departments1 = $.map($('input[name="departments"]:checked'), function(c){return c.value; });
+    console.log(departments1);
     var cityint = parseInt(city);
     var countryint = parseInt(country);
 
@@ -37,11 +45,12 @@ $(document).ready(function(){
       method: "POST",
       url: "api/edit.php",
       data: {
+        schoolid: schoolid,
         schoolname: schoolname,
         city: cityint,
         country: countryint,
         placeid: placeid,
-        departments: departments,
+        departments: departments1,
         action: 1
       },
       success: function(result){
@@ -60,9 +69,9 @@ $(document).ready(function(){
 
   $("#saveschool").click(function(){
 
-    var departments = $.map($('input[name="departments"]:checked'), function(c){return c.value; });
+    departments = $.map($('input[name="departments"]:checked'), function(c){return c.value; });
 
-    var schoolname = $("#addschoolname").val();
+    schoolname = $("#addschoolname").val();
     var map;
     var service;
     var infowindow;
@@ -82,10 +91,10 @@ $(document).ready(function(){
     function callback(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
           console.log(results);
-          var schoolname = $("#addschoolname").val();
-          var city = $("#addcity").val();
-          var country = $("#addcountry").val();
-          var placeid = results[0].place_id;
+          schoolname = $("#addschoolname").val();
+          city = $("#addcity").val();
+          country = $("#addcountry").val();
+          placeid = results[0].place_id;
 
           var cityint = parseInt(city);
           var countryint = parseInt(country);
