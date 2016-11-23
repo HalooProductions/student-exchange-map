@@ -309,11 +309,11 @@ function init () {
   initMap();
   }
 
-function findByPlaceID(place_id) {
+function findSchool(school) {
   var service = new google.maps.places.PlacesService(map);
 
   service.getDetails({
-    placeId: place_id
+    placeId: school.place_id
   }, function(place, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       var marker = new google.maps.Marker({
@@ -322,8 +322,8 @@ function findByPlaceID(place_id) {
       });
 
       var contentString =
-      '<h3>Sydney College</h3>'+
-      '<p>Australia, Sydney</p>'+
+      '<h3>' + school.name + '</h3>'+
+      '<p>' + school.country + ', ' + school.city + '</p>'+
       '<button class="ui button">Stories</button>'
       ;
 
@@ -333,13 +333,13 @@ function findByPlaceID(place_id) {
 
       infowindow.open(map, marker);
 
-      if (place.geometry.viewport) {
+      /*if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
         map.setZoom(5);
       } else {
         map.setCenter(place.geometry.location);
         map.setZoom(5);
-      }
+      }*/
 
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
@@ -352,6 +352,26 @@ function findByPlaceID(place_id) {
 
 }
 
+function getSchools() {
+  console.log('asdfsdfasdf');
+  $.ajax({
+    method: "GET",
+    url: "api/getschools.php"
+  })
+    .done(function(response) {
+      console.log(response);
+      var schools = JSON.parse(response);
+      console.log(schools);
+      setMarkers(schools);
+    });
+}
+
+function setMarkers(schools) {
+  for(var i = 0; i < schools.length; i++){
+    findSchool(schools[i]);
+  }
+}
+
 $(document).ready(function () {
   init();
   $('.ui.dropdown').dropdown();
@@ -361,4 +381,6 @@ $(document).ready(function () {
       focusCountry(parseInt(evt.target.value));
     }
   });
+
+  getSchools();
 });
