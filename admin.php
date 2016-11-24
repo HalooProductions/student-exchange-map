@@ -46,7 +46,7 @@
               <td><?= $school['name'] ?></td>
               <td>
                 <div class="centered">
-                  <button class="ui button yellow school-edit-btn" data-id="<?= $school['id'] ?>" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
+                  <button class="ui button yellow school-edit-btn" data-id="<?= $school['id'] ?>" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments1="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
                   <button class="ui button red">Poista</button>
                 </div>
               </td>
@@ -161,49 +161,49 @@
         </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="1" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="1" name="departments1">
             <label>Energiatekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="2" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="2" name="departments1">
             <label>Ympäristötekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="3" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="3" name="departments1">
             <label>Industrial Management</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="4" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="4" name="departments1">
             <label>Konetekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="5" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="5" name="departments1">
             <label>Rakennusarkkitehti</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="6" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="6" name="departments1">
             <label>Rakennustekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="7" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="7" name="departments1">
             <label>Sähkötekniikka</label>
         </div>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
-            <input type="checkbox" tabindex="0" class="hidden" value="8" name="departments">
+            <input type="checkbox" tabindex="0" class="hidden" value="8" name="departments1">
             <label>Tietotekniikka</label>
         </div>
       </div>

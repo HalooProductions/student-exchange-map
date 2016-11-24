@@ -28,7 +28,6 @@ class School
 	}
 
 	function update($data) {
-		var_dump($data);
 		if ($this->id === 0) {
 			throw new Exception("Error updating school object: Trying to update a object which isnt in the database yet!");
 
@@ -113,7 +112,6 @@ class School
 	}
 
 	function save() {
-		// Puuttuu departmentit
 		if ($this->id !== 0) {
 			$id = $this->conn->update(
 				'schools', 

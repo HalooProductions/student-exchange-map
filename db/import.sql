@@ -107,8 +107,7 @@ CREATE TABLE `schools` (
 -- Vedos taulusta `schools`
 --
 
-INSERT INTO `schools` (`id`, `name`, `place_id`, `country`, `city`) VALUES
-(1, 'Hochschule Ostwestfalen-Lippe', 'ChIJn7IKU5pCukcROdGCKQD3FX4', 3, 1);
+
 
 -- --------------------------------------------------------
 
