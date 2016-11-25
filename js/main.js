@@ -321,17 +321,7 @@ function findSchool(school) {
         position: place.geometry.location
       });
 
-      var contentString =
-      '<h3>' + school.name + '</h3>'+
-      '<p>' + school.country + ', ' + school.city + '</p>'+
-      '<button class="ui button">Stories</button>'
-      ;
 
-      var infowindow = new google.maps.InfoWindow({
-          content: contentString
-      });
-
-      infowindow.open(map, marker);
 
       /*if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
@@ -342,10 +332,17 @@ function findSchool(school) {
       }*/
 
       google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                  'Place ID: ' + place.place_id + '<br>' +
-                  place.formatted_address + '</div>');
-        infowindow.open(map, this);
+        var contentString =
+        '<h3>' + school.name + '</h3>'+
+        '<p>' + school.country + ', ' + school.city + '</p>'+
+        '<button class="ui button">Stories</button>'
+        ;
+
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+
+        infowindow.open(map, marker);
       });
     }
   });
@@ -359,9 +356,7 @@ function getSchools() {
     url: "api/getschools.php"
   })
     .done(function(response) {
-      console.log(response);
       var schools = JSON.parse(response);
-      console.log(schools);
       setMarkers(schools);
     });
 }
