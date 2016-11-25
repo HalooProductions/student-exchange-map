@@ -1,4 +1,9 @@
 var headerHeight = $('.header-container').height();
+var onNextPage;
+var onPrevPage;
+var pdfScrollChecker;
+var lastScroll = Date.now();
+var pdfControlsTimeoutFunc;
 
 var settings = {
   viewHeight: ($(window).height() / 3) * 2,
@@ -308,8 +313,27 @@ function init () {
   map.height(settings.viewHeight);
   initMap();
   var pdfviewer = $("#pdfviewer");
-  pdfviewer.height($(window).height() - 5);
-  pdfviewer.width($(window).width() - 5);
+  //pdfviewer.height($(window).height() - 10);
+  pdfviewer.width($(window).width() - 10);
+  $('#pdf-close').click(function () {
+    unloadPDF();
+  });
+
+  pdfScrollChecker = function () {
+    clearTimeout(pdfControlsTimeoutFunc);
+    $('#pdfcontrols').css('opacity', 100);
+    pdfControlsTimeoutFunc = setTimeout(function () {
+      $('#pdfcontrols').css('opacity', 0);
+    }, 3000);
+  }
+
+  $('#pdfcontrols').hover(function () {
+    $('#pdfcontrols').css('opacity', 100);
+  }, function () {
+    pdfControlsTimeoutFunc = setTimeout(function () {
+      $('#pdfcontrols').css('opacity', 0);
+    }, 3000);
+  });
 }
 
 function findSchool(school) {
@@ -356,7 +380,6 @@ function findSchool(school) {
 }
 
 function getSchools() {
-  console.log('asdfsdfasdf');
   $.ajax({
     method: "GET",
     url: "api/getschools.php"
@@ -375,33 +398,23 @@ function setMarkers(schools) {
   }
 }
 
-function loadPDF() {
-  //
-  // If absolute URL from the remote server is provided, configure the CORS
-  // header on that server.
-  //
-  var url = './test.pdf';
+function loadPDF(url) {
+  $('#pdf-loader').css('display', 'initial');
+  $('#pdfcontrols').css('opacity', 100);
 
+  pdfControlsTimeoutFunc = setTimeout(function () {
+    $('#pdfcontrols').css('opacity', 0);
+  }, 3000);
 
-  //
-  // Disable workers to avoid yet another cross-origin issue (workers need
-  // the URL of the script to be loaded, and dynamically loading a cross-origin
-  // script does not work).
-  //
-  // PDFJS.disableWorker = true;
+  window.addEventListener('scroll', pdfScrollChecker);
 
-  //
-  // In cases when the pdf.worker.js is located at the different folder than the
-  // pdf.js's one, or the pdf.js is executed via eval(), the workerSrc property
-  // shall be specified.
-  //
   PDFJS.workerSrc = './js/pdf.worker.min.js';
 
   var pdfDoc = null,
       pageNum = 1,
       pageRendering = false,
       pageNumPending = null,
-      scale = 0.8,
+      scale = 1.5,
       canvas = document.getElementById('pdf-canvas'),
       ctx = canvas.getContext('2d');
 
@@ -414,8 +427,8 @@ function loadPDF() {
     // Using promise to fetch the page
     pdfDoc.getPage(num).then(function(page) {
       var viewport = page.getViewport(scale);
-      canvas.height = 800//viewport.height;
-      canvas.width = 1000//viewport.width;
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
 
       // Render PDF page into canvas context
       var renderContext = {
@@ -454,7 +467,7 @@ function loadPDF() {
   /**
    * Displays previous page.
    */
-  function onPrevPage() {
+  onPrevPage = function () {
     if (pageNum <= 1) {
       return;
     }
@@ -462,12 +475,12 @@ function loadPDF() {
     queueRenderPage(pageNum);
   }
 
-  document.getElementById('prev').addEventListener('click', onPrevPage);
+  document.getElementById('pdf-viewer-prev').addEventListener('click', onPrevPage);
 
   /**
    * Displays next page.
    */
-  function onNextPage() {
+  onNextPage = function () {
     if (pageNum >= pdfDoc.numPages) {
       return;
     }
@@ -475,7 +488,7 @@ function loadPDF() {
     queueRenderPage(pageNum);
   }
 
-  document.getElementById('next').addEventListener('click', onNextPage);
+  document.getElementById('pdf-viewer-next').addEventListener('click', onNextPage);
 
   /**
    * Asynchronously downloads PDF.
@@ -486,7 +499,19 @@ function loadPDF() {
 
     // Initial/first page rendering
     renderPage(pageNum);
+
+    $('#pdf-loader').css('display', 'none');
+    $('#pdfviewer').css('display', 'initial');
+    $('#pdfcontrols').css('display', 'initial');
   });
+}
+
+function unloadPDF() {
+  $('#pdfviewer').css('display', 'none');
+  $('#pdfcontrols').css('display', 'none');
+  document.getElementById('pdf-viewer-prev').removeEventListener('click', onPrevPage);
+  document.getElementById('pdf-viewer-next').removeEventListener('click', onNextPage);
+  window.removeEventListener('scroll', pdfScrollChecker);
 }
 
 $(document).ready(function () {

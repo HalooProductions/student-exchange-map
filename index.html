@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/semantic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <meta charset="utf-8">
@@ -69,8 +70,20 @@
         </form>
       </div>
     </div>
-    <div id="pdfviewer">
-      <canvas class="pdf-canvas"></canvas>
+    <div id="pdf-loader" class="pdf-loader-container shadow-medium">
+        <h2>Loading PDF...</h2>
+        <div class="pdf-loader">
+          
+        </div>
+    </div>
+    <div id="pdfviewer" class="pdf-viewer">
+      <span id="pdf-close" class="fa fa-times pdf-viewer-close"></span>
+      <canvas id="pdf-canvas"></canvas>
+    </div>
+    <div id="pdfcontrols" class="pdf-viewer-controls shadow-small noselect">
+      <span id="pdf-viewer-prev" class="fa fa-angle-left pdf-viewer-control shadow-medium"></span>
+      <span class="page-num-text"><span id="page_num">1</span> / <span id="page_count">0</span></span>
+      <span id="pdf-viewer-next" class="fa fa-angle-right pdf-viewer-control shadow-medium"></span>
     </div>
     <script src="js/pdf.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U&libraries=places"
