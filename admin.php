@@ -11,6 +11,7 @@
 ?>
 <html lang="en">
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/semantic.min.css">
   <link rel="stylesheet" href="css/main.css">
   <meta charset="UTF-8">
@@ -81,8 +82,12 @@
             <option value="2">Ruotsi</option>
             <option value="3">Saksa</option>
           </select>
-        </div>
-        <div id="map" class="hidemap"></div>
+      </div>
+      <div class="field">
+        <label>Sijainti</label>
+        <button id="create-set-placeid" class="ui button teal">Aseta sijainti</button>
+        <span id="place-id-set-create">Ei asetettu</span>
+      </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
             <input type="checkbox" tabindex="0" class="hidden" name="departments" value="1">
@@ -159,7 +164,12 @@
             <option value="2">Ruotsi</option>
             <option value="3">Saksa</option>
           </select>
-        </div>
+      </div>
+      <div class="field">
+        <label>Sijainti</label>
+        <button id="edit-set-placeid" class="ui button teal">Aseta sijainti</button>
+        <span id="place-id-set-edit">Asetettu</span>
+      </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
             <input type="checkbox" tabindex="0" class="hidden" value="1" name="departments1">
@@ -212,6 +222,12 @@
     <div id="save-edit" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
   </div>
 </div>
+<div id="place-id-selector">
+  <input id="pac-input" class="place-id-controls" type="text"
+          placeholder="Enter a location">
+  <div id="map" class="place-id-map"></div>
+  <button id="place-id-select-btn" class="ui button teal place-id-select-btn">OK</button>
+</div>
 <script
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -220,6 +236,5 @@
 <script src="js/semantic.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U&libraries=places"
     async defer></script>
-<!--<script src= https://maps.googleapis.com/maps/api/place/textsearch/xml?query=restaurants+in+Sydney&key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U></script>!-->
 </body>
 </html>
