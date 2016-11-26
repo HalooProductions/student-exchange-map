@@ -134,5 +134,24 @@ $(document).ready(function(){
       }   
     }
   });
+
+  $(".school-delete-btn").click(function(){
+    var schoolid = $(this).data('id');
+
+    if(schoolid != 0)
+    {
+      $.ajax({
+        method: "POST",
+        url: "api/edit.php",
+        data: { 
+          schoolid: schoolid,
+          action: 2,
+        },
+        success: function(result){
+           location.reload(true);
+        }
+      })
+    }
+  });
 });
 // ajax action 0:luominen, 1:edit, 2:delete
