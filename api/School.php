@@ -202,9 +202,8 @@ class School
 				$returnCollection->push($fixedtmp);
 			}
 		} else {
-			return NULL;		
+			return NULL;
 		}
-
 		return $returnCollection;
 	}
 }
