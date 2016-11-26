@@ -68,23 +68,58 @@ if($action == 0 || $action == 1)
 		} catch (Exception $e) {
 			$errors = 'Virhe tietojenkäsittelyssä.';	
 		}
+
+		try {
+			$deplength = $request->input('deplength');
+		} catch (Exception $e) {
+			$errors = 'Virhe tietojenkäsittelyssä.';	
+		}
+
 		$schoolid = intval($schoolid);
 		$updateschool = new School($conn);
 		$updateschool = $updateschool->where([
 			'id' => $schoolid
 			])->first();
 
-		try {
-			$updateschool->update([
+		if ($deplength == "none") 
+		{
+			$deletedepartments = new School($conn);
+
+			try {
+				$updateschool->update([
+					'id' => $schoolid,
+					'name' => $schoolname,
+					'country' => $country,
+					'city' => $city,
+					'place_id' => $placeid,
+				])->save();	
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+			$deletedepartments = $deletedepartments->where([
 				'id' => $schoolid,
-				'name' => $schoolname,
-				'country' => $country,
-				'city' => $city,
-				'place_id' => $placeid,
-				'departments' => $departments,
-			])->save();	
-		} catch (Exception $e) {
-			echo $e->getMessage();
+				])->first();
+			try {
+				$deletedepartments->deleteDepartments([
+					'id' => $schoolid,
+					]);
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
+		} 
+		else {
+			try {
+				$updateschool->update([
+					'id' => $schoolid,
+					'name' => $schoolname,
+					'country' => $country,
+					'city' => $city,
+					'place_id' => $placeid,
+					'departments' => $departments,
+				])->save();	
+			} catch (Exception $e) {
+				echo $e->getMessage();
+			}
 		}
 	}
 }
