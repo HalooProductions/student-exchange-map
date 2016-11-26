@@ -202,7 +202,7 @@ class School
 				$returnCollection->push($fixedtmp);
 			}
 		} else {
-			throw new Exception("Error while retrieving schools: No records found in database!");		
+			return NULL;		
 		}
 
 		return $returnCollection;

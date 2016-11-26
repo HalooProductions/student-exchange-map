@@ -38,6 +38,7 @@
       </thead>
       <tbody>
         <?php
+        if($schools != NULL)
           $schools->each(function($school) {
             ?>
             <tr>
@@ -47,7 +48,7 @@
               <td>
                 <div class="centered">
                   <button class="ui button yellow school-edit-btn" data-id="<?= $school['id'] ?>" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments1="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
-                  <button class="ui button red">Poista</button>
+                  <button class="ui button red school-delete-btn" data-id="<?= $school['id'] ?>">Poista</button>
                 </div>
               </td>
             </tr>

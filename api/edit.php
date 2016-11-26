@@ -90,5 +90,23 @@ if($action == 0 || $action == 1)
 }
 else if($action == 2)
 {
-	
+	try {
+		$schoolid = $request->input('schoolid');
+	} catch (Exception $e) {
+		$errors = 'Virhe tietojenkäsittelyssä.';	
+	}
+	$schoolid = intval($schoolid);
+	$deleteschool = new School($conn);
+
+	$deleteschool = $deleteschool->where([
+		'id' => $schoolid
+		])->first();
+
+	try {
+		$deleteschool->delete([
+			'id' => $schoolid,
+			]);
+	} catch (Exception $e) {
+		echo $e->getMessage();
+	}
 }
