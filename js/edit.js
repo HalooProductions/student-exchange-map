@@ -37,6 +37,11 @@ $(document).ready(function(){
       var city1 = $("#city-input").val();
       var country1 = $("#country-input").val();
       departments1 = $.map($('input[name="departments1"]:checked'), function(c){return c.value; });
+      deplength = departments1.length;
+      if (deplength == 0)
+      {
+        deplength = "none";
+      }
       var cityint1 = parseInt(city1);
       var countryint1 = parseInt(country1);
       $.ajax({
@@ -49,6 +54,7 @@ $(document).ready(function(){
           country: countryint1,
           placeid: placeid1,
           departments: departments1,
+          deplength: deplength,
           action: 1
         },
         success: function(result){
