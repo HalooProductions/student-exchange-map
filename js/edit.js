@@ -5,51 +5,89 @@ $(document).ready(function(){
     $('#city-input').dropdown("set selected", $(this).data('city'));
     $('.ui.dropdown').dropdown('refresh');
     $('#school-input').val($(this).data("school"));
+    var tempdepartments = [];
+    tempdepartments = $(this).data('departments1');
+    if (typeof tempdepartments === "number") {
+      tempdepartments = tempdepartments + '';
+    }
+    
+    if(tempdepartments.length > 0)
+    {  
+      var departments1 = tempdepartments.split(",");
+    }
+    else
+    {
+      var departments1 = [];
+    }
+    var deplength = departments1.length;
+    var schoolid1 = $(this).data('id');
+    var placeid1 = $(this).data('placeid');
 
-    var schoolname = $('#school-input').val();
-    var country = $('#city-input').val();
-    var city = $('#country-input').val();
+    for (var i = 1; i < 9; i++) {
+      $("#editmodal .checkbox").find('[value=' + [i] + ']').prop("checked", false);
+    }
 
-    $.ajax({
-      method: "POST",
-      url : "api/edit.php",
-      data: {
-        schoolname: schoolname,
-        city: city,
-        country: country,
-      }
+    for (var i = 0; i < deplength; i++) {
+      $("#editmodal .checkbox").find('[value=' + departments1[i] + ']').prop("checked", true);
+    }
+    
+    $("#save-edit").click(function(){
+      var departments1 = [];
+      var schoolname1 = $("#school-input").val();
+      var city1 = $("#city-input").val();
+      var country1 = $("#country-input").val();
+      departments1 = $.map($('input[name="departments1"]:checked'), function(c){return c.value; });
+      var cityint1 = parseInt(city1);
+      var countryint1 = parseInt(country1);
+      $.ajax({
+        method: "POST",
+        url: "api/edit.php",
+        data: {
+          schoolid: schoolid1,
+          schoolname: schoolname1,
+          city: cityint1,
+          country: countryint1,
+          placeid: placeid1,
+          departments: departments1,
+          action: 1
+        },
+        success: function(result){
+          $("#editmodal").modal("hide");
+          location.reload(true);
+        }
+      });
     })
   });
 
   $("#add-school-btn").click(function(){
   	$("#addmodal").modal("show");
 
-  	var schoolname = $("#addschoolname").val();
-    var city = $("#addcity").val();
-    var country = $("#addcountry").val();
-  	var placeid = $("#addplaceid").val();
 
+    for (var i = 1; i < 9; i++) {
+      $("#addmodal .checkbox").find('[value=' + [i] + ']').prop("checked", false);
+    }
   });
+
   $('.ui.checkbox').checkbox();
 
   $('select.dropdown').dropdown();
 
-  $("#saveschool").on("click", function(){
+  $("#saveschool").click(function(){
 
+    var schoolname;
+    var city;
+    var country;
+    var placeid;
     var departments = $.map($('input[name="departments"]:checked'), function(c){return c.value; });
 
-    var schoolname = $("#addschoolname").val();
+    schoolname = $("#addschoolname").val();
     var map;
     var service;
     var infowindow;
     initialize();
     function initialize() {
-      var pyrmont = new google.maps.LatLng(-33.8665433,151.1956316);
 
-      map = new google.maps.Map(document.getElementById('map'), {
-          center: pyrmont,
-          zoom: 15
-        });
+      map = new google.maps.Map(document.getElementById('map'));
 
       var request = {
         query: schoolname,
@@ -62,10 +100,10 @@ $(document).ready(function(){
     function callback(results, status) {
       if (status == google.maps.places.PlacesServiceStatus.OK) {
 
-          var schoolname = $("#addschoolname").val();
-          var city = $("#addcity").val();
-          var country = $("#addcountry").val();
-          var placeid = results[0].place_id;
+          schoolname = $("#addschoolname").val();
+          city = $("#addcity").val();
+          country = $("#addcountry").val();
+          placeid = results[0].place_id;
 
           var cityint = parseInt(city);
           var countryint = parseInt(country);
@@ -80,13 +118,35 @@ $(document).ready(function(){
                 country: countryint,
                 placeid: placeid,
                 departments: departments,
+                action: 0
               },
               success: function(result){
-                console.log(result);
+                $("#addmodal").modal("hide");
+                location.reload(true);
               }
             });
           }
       }   
     }
   });
+
+  $(".school-delete-btn").click(function(){
+    var schoolid = $(this).data('id');
+
+    if(schoolid != 0)
+    {
+      $.ajax({
+        method: "POST",
+        url: "api/edit.php",
+        data: { 
+          schoolid: schoolid,
+          action: 2,
+        },
+        success: function(result){
+           location.reload(true);
+        }
+      })
+    }
+  });
 });
+// ajax action 0:luominen, 1:edit, 2:delete
