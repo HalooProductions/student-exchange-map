@@ -124,15 +124,8 @@
 	margin-top: 10px;
 }
 
-
 .hidemap {
 	display: none;
-}
-
-.item {
-	display: inline-block;
-	text-align: center;
-	float: left;
 }
 
 .noselect {
