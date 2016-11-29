@@ -510,7 +510,6 @@ function unloadPDF() {
 }
 
 $(document).ready(function () {
-  init();
   $('.ui.dropdown').dropdown();
 
   $('.ui.dropdown').on('change', function (evt) {
