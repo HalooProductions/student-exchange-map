@@ -376,6 +376,14 @@ function findSchool(school) {
 
 }
 
+function modal () {
+  $('.ui.modal').modal('show')
+  ;
+  $('#kokemuslink').click(function(){
+    loadPDF('../2016_TeKu_SusannaHiltunen_Unkari.pdf');
+  }); 
+}
+
 function getSchools() {
   $.ajax({
     method: "GET",
