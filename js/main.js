@@ -1,4 +1,9 @@
 var headerHeight = $('.header-container').height();
+var onNextPage;
+var onPrevPage;
+var pdfScrollChecker;
+var lastScroll = Date.now();
+var pdfControlsTimeoutFunc;
 
 var settings = {
   viewHeight: ($(window).height() / 3) * 2,
@@ -307,7 +312,29 @@ function init () {
   map = $("#map");
   map.height(settings.viewHeight);
   initMap();
+  var pdfviewer = $("#pdfviewer");
+  //pdfviewer.height($(window).height() - 10);
+  pdfviewer.width($(window).width() - 10);
+  $('#pdf-close').click(function () {
+    unloadPDF();
+  });
+
+  pdfScrollChecker = function () {
+    clearTimeout(pdfControlsTimeoutFunc);
+    $('#pdfcontrols').css('opacity', 100);
+    pdfControlsTimeoutFunc = setTimeout(function () {
+      $('#pdfcontrols').css('opacity', 0);
+    }, 3000);
   }
+
+  $('#pdfcontrols').hover(function () {
+    $('#pdfcontrols').css('opacity', 100);
+  }, function () {
+    pdfControlsTimeoutFunc = setTimeout(function () {
+      $('#pdfcontrols').css('opacity', 0);
+    }, 3000);
+  });
+}
 
 function findSchool(school) {
   var service = new google.maps.places.PlacesService(map);
@@ -350,7 +377,6 @@ function findSchool(school) {
 }
 
 function getSchools() {
-  console.log('asdfsdfasdf');
   $.ajax({
     method: "GET",
     url: "api/getschools.php"
@@ -365,6 +391,122 @@ function setMarkers(schools) {
   for(var i = 0; i < schools.length; i++){
     findSchool(schools[i]);
   }
+}
+
+function loadPDF(url) {
+  $('#pdf-loader').css('display', 'initial');
+  $('#pdfcontrols').css('opacity', 100);
+
+  pdfControlsTimeoutFunc = setTimeout(function () {
+    $('#pdfcontrols').css('opacity', 0);
+  }, 3000);
+
+  window.addEventListener('scroll', pdfScrollChecker);
+
+  PDFJS.workerSrc = './js/pdf.worker.min.js';
+
+  var pdfDoc = null,
+      pageNum = 1,
+      pageRendering = false,
+      pageNumPending = null,
+      scale = 1.5,
+      canvas = document.getElementById('pdf-canvas'),
+      ctx = canvas.getContext('2d');
+
+  /**
+   * Get page info from document, resize canvas accordingly, and render page.
+   * @param num Page number.
+   */
+  function renderPage(num) {
+    pageRendering = true;
+    // Using promise to fetch the page
+    pdfDoc.getPage(num).then(function(page) {
+      var viewport = page.getViewport(scale);
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      // Render PDF page into canvas context
+      var renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+      };
+      var renderTask = page.render(renderContext);
+
+      // Wait for rendering to finish
+      renderTask.promise.then(function () {
+        pageRendering = false;
+        if (pageNumPending !== null) {
+          // New page rendering is pending
+          renderPage(pageNumPending);
+          pageNumPending = null;
+        }
+      });
+    });
+
+    // Update page counters
+    document.getElementById('page_num').textContent = pageNum;
+  }
+
+  /**
+   * If another page rendering in progress, waits until the rendering is
+   * finised. Otherwise, executes rendering immediately.
+   */
+  function queueRenderPage(num) {
+    if (pageRendering) {
+      pageNumPending = num;
+    } else {
+      renderPage(num);
+    }
+  }
+
+  /**
+   * Displays previous page.
+   */
+  onPrevPage = function () {
+    if (pageNum <= 1) {
+      return;
+    }
+    pageNum--;
+    queueRenderPage(pageNum);
+  }
+
+  document.getElementById('pdf-viewer-prev').addEventListener('click', onPrevPage);
+
+  /**
+   * Displays next page.
+   */
+  onNextPage = function () {
+    if (pageNum >= pdfDoc.numPages) {
+      return;
+    }
+    pageNum++;
+    queueRenderPage(pageNum);
+  }
+
+  document.getElementById('pdf-viewer-next').addEventListener('click', onNextPage);
+
+  /**
+   * Asynchronously downloads PDF.
+   */
+  PDFJS.getDocument(url).then(function (pdfDoc_) {
+    pdfDoc = pdfDoc_;
+    document.getElementById('page_count').textContent = pdfDoc.numPages;
+
+    // Initial/first page rendering
+    renderPage(pageNum);
+
+    $('#pdf-loader').css('display', 'none');
+    $('#pdfviewer').css('display', 'initial');
+    $('#pdfcontrols').css('display', 'initial');
+  });
+}
+
+function unloadPDF() {
+  $('#pdfviewer').css('display', 'none');
+  $('#pdfcontrols').css('display', 'none');
+  document.getElementById('pdf-viewer-prev').removeEventListener('click', onPrevPage);
+  document.getElementById('pdf-viewer-next').removeEventListener('click', onNextPage);
+  window.removeEventListener('scroll', pdfScrollChecker);
 }
 
 $(document).ready(function () {
