@@ -366,9 +366,9 @@ function findSchool(school) {
         '<button id="stories-btn" class="ui button">Stories</button>'
         ;
 
-          if (google.maps.event.addListener(marker, 'click', function() {
-            infowindow.close(map, marker);
-          }))
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.close(map, marker);
+        });
 
         var infowindow = new google.maps.InfoWindow({
             content: contentString
