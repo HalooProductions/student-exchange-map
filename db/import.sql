@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 09.11.2016 klo 11:01
--- Palvelimen versio: 5.7.11
+-- Generation Time: Nov 30, 2016 at 07:52 AM
+-- Server version: 5.7.11
 -- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -23,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `cities`
+-- Table structure for table `cities`
 --
 
 CREATE TABLE `cities` (
@@ -33,7 +33,7 @@ CREATE TABLE `cities` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Vedos taulusta `cities`
+-- Dumping data for table `cities`
 --
 
 INSERT INTO `cities` (`id`, `name`, `place_id`) VALUES
@@ -43,7 +43,7 @@ INSERT INTO `cities` (`id`, `name`, `place_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `countries`
+-- Table structure for table `countries`
 --
 
 CREATE TABLE `countries` (
@@ -53,7 +53,7 @@ CREATE TABLE `countries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Vedos taulusta `countries`
+-- Dumping data for table `countries`
 --
 
 INSERT INTO `countries` (`id`, `name`, `place_id`) VALUES
@@ -64,7 +64,7 @@ INSERT INTO `countries` (`id`, `name`, `place_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `departments`
+-- Table structure for table `departments`
 --
 
 CREATE TABLE `departments` (
@@ -74,7 +74,7 @@ CREATE TABLE `departments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Vedos taulusta `departments`
+-- Dumping data for table `departments`
 --
 
 INSERT INTO `departments` (`id`, `name`, `code`) VALUES
@@ -90,9 +90,21 @@ INSERT INTO `departments` (`id`, `name`, `code`) VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `experiences`
+--
+
+CREATE TABLE `experiences` (
+  `id` int(11) NOT NULL,
+  `url` varchar(255) NOT NULL,
+  `writer` varchar(255) NOT NULL,
+  `school_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
 
 --
--- Rakenne taululle `schools`
+-- Table structure for table `schools`
 --
 
 CREATE TABLE `schools` (
@@ -103,16 +115,10 @@ CREATE TABLE `schools` (
   `city` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Vedos taulusta `schools`
---
-
-
-
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `school_has_department`
+-- Table structure for table `school_has_department`
 --
 
 CREATE TABLE `school_has_department` (
@@ -123,20 +129,7 @@ CREATE TABLE `school_has_department` (
 -- --------------------------------------------------------
 
 --
--- Rakenne taululle `experiences`
---
-
-CREATE TABLE `experiences` (
-  `id` int(11) NOT NULL,
-  `text` text NOT NULL,
-  `writer` varchar(255) NOT NULL,
-  `school_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Rakenne taululle `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -147,7 +140,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Vedos taulusta `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `display_name`) VALUES
@@ -176,7 +169,12 @@ ALTER TABLE `countries`
 ALTER TABLE `departments`
   ADD PRIMARY KEY (`id`);
 
-
+--
+-- Indexes for table `experiences`
+--
+ALTER TABLE `experiences`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `school_id` (`school_id`);
 
 --
 -- Indexes for table `schools`
@@ -185,14 +183,7 @@ ALTER TABLE `schools`
   ADD PRIMARY KEY (`id`),
   ADD KEY `country_id` (`country`),
   ADD KEY `city_id` (`city`);
-  
---
--- Indexes for table `experiences`
---
-ALTER TABLE `experiences`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `school_id` (`school_id`);
-  
+
 --
 -- Indexes for table `school_has_department`
 --
@@ -241,22 +232,24 @@ ALTER TABLE `schools`
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- Rajoitteet vedostauluille
+-- Constraints for dumped tables
 --
+
 --
--- Rajoitteet taululle `experiences`
+-- Constraints for table `experiences`
 --
 ALTER TABLE `experiences`
   ADD CONSTRAINT `fk_schools_id` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`);
+
 --
--- Rajoitteet taululle `schools`
+-- Constraints for table `schools`
 --
 ALTER TABLE `schools`
   ADD CONSTRAINT `fk_school_city` FOREIGN KEY (`city`) REFERENCES `cities` (`id`),
   ADD CONSTRAINT `fk_school_country` FOREIGN KEY (`country`) REFERENCES `countries` (`id`);
 
 --
--- Rajoitteet taululle `school_has_department`
+-- Constraints for table `school_has_department`
 --
 ALTER TABLE `school_has_department`
   ADD CONSTRAINT `school_has_department_ibfk_1` FOREIGN KEY (`school_id`) REFERENCES `schools` (`id`),

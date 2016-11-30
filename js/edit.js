@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  $(".school-add-pdf-btn").click(function(){
+    $('#pdfmodal').modal('show');
+  });
+
   $(".school-edit-btn").click(function(){
     $('#editmodal').modal('show');
     $('#country-input').dropdown("set selected", $(this).data('country'));

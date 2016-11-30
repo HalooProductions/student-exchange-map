@@ -48,6 +48,7 @@
               <td><?= $school['name'] ?></td>
               <td>
                 <div class="centered">
+                  <button class="ui button green school-add-pdf-btn">Lisää PDF</button>
                   <button class="ui button yellow school-edit-btn" data-id="<?= $school['id'] ?>" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments1="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
                   <button class="ui button red school-delete-btn" data-id="<?= $school['id'] ?>">Poista</button>
                 </div>
@@ -56,6 +57,16 @@
           <?php }) ?>
       </tbody>
     </table>
+  </div>
+</div>
+<div id="pdfmodal" class="ui modal">
+  <div class="header">Lisää opiskelijan vaihtokokemus PDF</div>
+  <div class="content">
+    <div class="ui form">
+      <label for="pdf-input" class="ui button green">Avaa PDF</label>
+      <input type="file" id="pdf-input" class="pdf-input" onchange="">
+    </div>
+    <div id="saveschool" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
   </div>
 </div>
 <div id="addmodal" class="ui modal">
