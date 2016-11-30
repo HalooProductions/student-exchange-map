@@ -46,24 +46,26 @@ $(document).ready(function(){
       }
       var cityint1 = parseInt(city1);
       var countryint1 = parseInt(country1);
-      $.ajax({
-        method: "POST",
-        url: "api/edit.php",
-        data: {
-          schoolid: schoolid1,
-          schoolname: schoolname1,
-          city: cityint1,
-          country: countryint1,
-          placeid: placeid1,
-          departments: departments1,
-          deplength: deplength,
-          action: 1
-        },
-        success: function(result){
-          $("#editmodal").modal("hide");
-          location.reload(true);
-        }
-      });
+      if (schoolname1 != '' && city1 != '' && country1 != '' && typeof(placeid1) != 'undefined') {
+        $.ajax({
+          method: "POST",
+          url: "api/edit.php",
+          data: {
+            schoolid: schoolid1,
+            schoolname: schoolname1,
+            city: cityint1,
+            country: countryint1,
+            placeid: placeid1,
+            departments: departments1,
+            deplength: deplength,
+            action: 1
+          },
+          success: function(result){
+            $("#editmodal").modal("hide");
+            location.reload(true);
+          }
+        });
+      }
     })
   });
 
@@ -91,12 +93,27 @@ $(document).ready(function(){
     }
   });
 
+  $('.addmodal').form({
+    fields: {
+      schoolname : 'empty',
+      cityname : 'empty',
+      countryname : 'empty',
+    }
+  });
+
+  $('.editmodal').form({
+    fields: {
+      schoolname1 : 'empty',
+      cityname1 : 'empty',
+      countryname1 : 'empty',
+    }
+  });
+
   $('.ui.checkbox').checkbox();
 
   $('select.dropdown').dropdown();
 
   $("#saveschool").click(function(){
-
     var schoolname;
     var city;
     var country;
@@ -104,13 +121,18 @@ $(document).ready(function(){
     var departments = $.map($('input[name="departments"]:checked'), function(c){return c.value; });
     var place_id = $('#place-id-set-create').data('place_id');
 
+    if(typeof(place_id) == 'undefined')
+    {
+      document.getElementById("create-set-placeid").style.background='#db082f';
+    }
+
     schoolname = $("#addschoolname").val();
     city = $("#addcity").val();
     country = $("#addcountry").val();
-
     var cityint = parseInt(city);
     var countryint = parseInt(country);
-    if (schoolname != '' && city != '' && country != '' && placeid != '') {
+
+    if (schoolname != '' && city != '' && country != '' && typeof(place_id) != 'undefined') {
       $.ajax({
         method: "POST",
         url: "api/edit.php",

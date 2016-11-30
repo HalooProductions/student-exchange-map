@@ -58,17 +58,17 @@
     </table>
   </div>
 </div>
-<div id="addmodal" class="ui modal">
+<div id="addmodal" class="ui modal addmodal" name="addschoolmodal">
   <div class="header">Lisää koulu</div>
   <div class="content">
     <div class="ui form">
       <div class="field">
           <label>Koulun nimi</label>
-          <input id="addschoolname" type="text" name="school-name" placeholder="Koulun nimi">
+          <input id="addschoolname" type="text" name="schoolname" placeholder="Koulun nimi">
       </div>
       <div class="field">
         <label>Kaupunki</label>
-        <select id="addcity" class="ui search dropdown">
+        <select id="addcity" name="cityname" class="ui search dropdown">
           <option value="">Valitse kaupunki</option>
           <option value="1">Regensburg</option>
           <option value="2">Kuopio</option>
@@ -76,7 +76,7 @@
       </div>
       <div class="field">
           <label>Maa</label>
-          <select id="addcountry" class="ui search dropdown">
+          <select id="addcountry" name="countryname" class="ui search dropdown">
             <option value="">Valitse maa</option>
             <option value="1">Suomi</option>
             <option value="2">Ruotsi</option>
@@ -86,7 +86,7 @@
       <div class="field">
         <label>Sijainti</label>
         <button id="create-set-placeid" class="ui button teal">Aseta sijainti</button>
-        <span id="place-id-set-create">Ei asetettu</span>
+        <span id="place-id-set-create" name="setplaceid">Ei asetettu</span>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
@@ -140,17 +140,17 @@
     <div id="saveschool" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
   </div>
 </div>
-<div id="editmodal" class="ui modal">
+<div id="editmodal" class="ui modal editmodal">
   <div class="header">Muokkaa koulua</div>
   <div class="content">
     <div class="ui form">
       <div class="field">
           <label>Koulun nimi</label>
-          <input id="school-input" type="text" name="school-name" placeholder="Koulun nimi">
+          <input id="school-input" type="text" name="schoolname1" placeholder="Koulun nimi">
       </div>
       <div class="field">
         <label>Kaupunki</label>
-        <select id="city-input" class="ui search dropdown">
+        <select id="city-input" name="cityname1" class="ui search dropdown">
           <option value="">Valitse kaupunki</option>
           <option value="1">Regensburg</option>
           <option value="2">Kuopio</option>
@@ -158,7 +158,7 @@
       </div>
       <div class="field">
           <label>Maa</label>
-          <select id="country-input" class="ui search dropdown">
+          <select id="country-input" name="countryname1" class="ui search dropdown">
             <option value="">Valitse maa</option>
             <option value="1">Suomi</option>
             <option value="2">Ruotsi</option>
