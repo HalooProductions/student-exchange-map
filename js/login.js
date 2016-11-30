@@ -26,7 +26,7 @@ $(document).ready(function () {
 					var responseJSON = JSON.parse(response);
 					if(responseJSON.success)
 					{
-						window.location="edit.html";
+						window.location="admin.php";
 					}
 					else
 					{

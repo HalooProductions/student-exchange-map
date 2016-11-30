@@ -344,7 +344,7 @@ function findSchool(school) {
   }, function(place, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       var marker = new google.maps.Marker({
-        icon: document.baseURI + "img/marker.png",
+        icon: document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + "img/marker.png",
         map: map,
         position: place.geometry.location
       });
@@ -363,7 +363,7 @@ function findSchool(school) {
         var contentString =
         '<h3>' + school.name + '</h3>'+
         '<p>' + school.country + ', ' + school.city + '</p>'+
-        '<button class="ui button">Stories</button>'
+        '<button id="stories-btn" class="ui button">Stories</button>'
         ;
 
         var infowindow = new google.maps.InfoWindow({
@@ -371,6 +371,12 @@ function findSchool(school) {
         });
 
         infowindow.open(map, marker);
+
+        setTimeout(function() {
+          $('#stories-btn').click(function() {
+            modal();
+          });
+        }, 500);
       });
     }
   });
@@ -381,7 +387,8 @@ function modal () {
   $('.ui.modal').modal('show')
   ;
   $('#kokemuslink').click(function(){
-    loadPDF('../2016_TeKu_SusannaHiltunen_Unkari.pdf');
+    loadPDF(document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + '2016_TeKu_Tuukka Heiskanen_Netherlands.pdf');
+  $('.ui.modal').modal('hide');
   }); 
 }
 
