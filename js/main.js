@@ -344,6 +344,7 @@ function findSchool(school) {
   }, function(place, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       var marker = new google.maps.Marker({
+        icon: document.baseURI + "img/marker.png",
         map: map,
         position: place.geometry.location
       });
