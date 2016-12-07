@@ -195,14 +195,13 @@ class School
 				$departments = $this->conn->get('school_has_department', ['school_id' => $record['id']]);			
 				$departments_plucked = array_column($departments, 'department_id');
 				$tmp->update(['departments' => $departments_plucked]);
-				$tmpcity = $this->conn->get('cities', ['id' => $tmp->city]);
 				$tmpcountry = $this->conn->get('countries', ['id' => $tmp->country]);
 				
 				$fixedtmp = array(
 					"id" => $tmp->id,
 					"name" => $tmp->name,
 					"country" => $tmpcountry[0]['name'],
-					"city" => $tmpcity[0]['name'],
+					"city" => $tmp->city,
 					"place_id" => $tmp->place_id,
 					"departments" => $tmp->departments,
 					);

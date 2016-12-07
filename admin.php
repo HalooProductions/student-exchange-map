@@ -68,11 +68,7 @@
       </div>
       <div class="field">
         <label>Kaupunki</label>
-        <select id="addcity" name="cityname" class="ui search dropdown">
-          <option value="">Valitse kaupunki</option>
-          <option value="1">Regensburg</option>
-          <option value="2">Kuopio</option>
-        </select>
+        <input id="addcity" type="text" name="cityname" placeholder="Kaupungin nimi">
       </div>
       <div class="field">
           <label>Maa</label>
@@ -150,11 +146,9 @@
       </div>
       <div class="field">
         <label>Kaupunki</label>
-        <select id="city-input" name="cityname1" class="ui search dropdown">
-          <option value="">Valitse kaupunki</option>
-          <option value="1">Regensburg</option>
-          <option value="2">Kuopio</option>
-        </select>
+        <input id="city-input" type="text" name="cityname" placeholder="Kaupungin nimi">
+      </div>
+      <div class="field">
       </div>
       <div class="field">
           <label>Maa</label>

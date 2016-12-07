@@ -24,7 +24,7 @@ var_dump($asd->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first()->na
 $a->create([
     'name' => 'Savonia Ammattikoulu',
     'country' => 1,
-    'city' => 2,
+    'city' => 'Kuopio',
     'place_id' => 'asdggwp',
     'departments' => [1, 3],
 ])->save();
