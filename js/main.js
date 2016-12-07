@@ -407,7 +407,7 @@ function getSchools() {
     });
 }
 
-function getSchools() {
+function getExp() {
   $.ajax({
     method: "GET",
     url: "api/getExp.php"
