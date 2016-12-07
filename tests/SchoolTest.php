@@ -82,7 +82,7 @@ class SchoolTest extends TestCase
         $a->create([
             'name' => 'Savonia Ammattikoulu',
             'country' => 1,
-            'city' => Helsinki,
+            'city' => 'Helsinki',
             'place_id' => 'asdggwp',
             'departments' => [1, 3],
         ])->save();
