@@ -289,7 +289,6 @@ function initMap () {
 
   var e = document.getElementById("schoolmenu");
   var pl_id = e.value;
-  console.log(e.value);
   if(pl_id != '') {
     focusSchool(pl_id, map);
   }
@@ -435,7 +434,6 @@ function setDropdowns(schools) {
   option.value = schools.place_id;
   option.id = schools.id;
   option.text = schools.name;
-  console.log(option.text);
   select.add(option, 0);
 }
 
