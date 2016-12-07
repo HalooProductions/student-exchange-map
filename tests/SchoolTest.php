@@ -25,7 +25,7 @@ class SchoolTest extends TestCase
         $a->create([
             'name' => 'Savonia Ammattikorkeakoulu',
             'country' => 1,
-            'city' => 2,
+            'city' => 'Kuopio',
             'place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28',
             'departments' => [1, 3],
         ])->save();
@@ -46,7 +46,7 @@ class SchoolTest extends TestCase
         $a->create([
             'name' => 'Savonia Ammattikoulu',
             'country' => 1,
-            'city' => 2,
+            'city' => 'Helsinki',
             'place_id' => 'ajasdkljljkjklfklr',
             'departments' => [1, 3],
         ])->save();
@@ -59,7 +59,7 @@ class SchoolTest extends TestCase
 
         $b->update([
             'name' => 'Kiuruveden Yläkoulu',
-            'city' => 1,
+            'city' => 'Kiuruvesi',
         ])->save();
 
         $c = new School($conn);
@@ -69,7 +69,7 @@ class SchoolTest extends TestCase
         ])->first();
 
         $this->assertEquals('Kiuruveden Yläkoulu', $c->name);
-        $this->assertEquals(1, $c->city);
+        $this->assertEquals('Kiuruvesi', $c->city);
     }
 
     public function testDelete()
@@ -82,7 +82,7 @@ class SchoolTest extends TestCase
         $a->create([
             'name' => 'Savonia Ammattikoulu',
             'country' => 1,
-            'city' => 2,
+            'city' => 'Helsinki',
             'place_id' => 'asdggwp',
             'departments' => [1, 3],
         ])->save();

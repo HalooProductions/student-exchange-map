@@ -2,7 +2,7 @@ $(document).ready(function(){
   $(".school-edit-btn").click(function(){
     $('#editmodal').modal('show');
     $('#country-input').dropdown("set selected", $(this).data('country'));
-    $('#city-input').dropdown("set selected", $(this).data('city'));
+    $('#city-input').val($(this).data('city'));
     $('#place-id-set-edit').data('place_id', $(this).data('placeid'));
     $('.ui.dropdown').dropdown('refresh');
     $('#school-input').val($(this).data("school"));
@@ -44,7 +44,6 @@ $(document).ready(function(){
       {
         deplength = "none";
       }
-      var cityint1 = parseInt(city1);
       var countryint1 = parseInt(country1);
       if (schoolname1 != '' && city1 != '' && country1 != '' && typeof(placeid1) != 'undefined') {
         $.ajax({
@@ -53,7 +52,7 @@ $(document).ready(function(){
           data: {
             schoolid: schoolid1,
             schoolname: schoolname1,
-            city: cityint1,
+            city: city1,
             country: countryint1,
             placeid: placeid1,
             departments: departments1,
@@ -129,7 +128,6 @@ $(document).ready(function(){
     schoolname = $("#addschoolname").val();
     city = $("#addcity").val();
     country = $("#addcountry").val();
-    var cityint = parseInt(city);
     var countryint = parseInt(country);
 
     if (schoolname != '' && city != '' && country != '' && typeof(place_id) != 'undefined') {
@@ -138,7 +136,7 @@ $(document).ready(function(){
         url: "api/edit.php",
         data: {
           schoolname: schoolname,
-          city: cityint,
+          city: city,
           country: countryint,
           placeid: place_id,
           departments: departments,

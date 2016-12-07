@@ -23,6 +23,8 @@
       </div>
     </div>
     <div id="map" class="map"></div>
+
+    <!--Kohdennus valikot-->
     <div class="controls">
       <div class="controls-container">
         <form class="ui form">
@@ -41,38 +43,11 @@
               </div>
             </div>
             <div class="field">
-              <label>City</label>
-              <div class="ui search selection dropdown">
-                <input name="city" type="hidden">
-                <i class="dropdown icon"></i>
-                <div class="default text">Search for a city</div>
-                <div class="menu">
-                  <div class="item" data-value="0">Stockholm</div>
-                  <div class="item" data-value="1">Helsinki</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="infomodal" class="ui modal">
-                <div class="header">Savonia AMK</div>
-                <div class="content">
-                  <h4>Maa: <span class="modalsubtitle">Suomi</span></h4>
-                  <h4>Kaupunki: <span class="modalsubtitle">Kuopio</span></h4>
-                  <h4>Kokemuksia:</h4>
-                  <div class="experience">
-                      <h4>Nimi: <span class="modalsubtitle">Tuukka Heiskanen</span></h4>
-                      <p id="kokemuslink" class="ui button">Linkki kokemukseen</p>
-                  </div>
-                </div>
-
-              </div>
-          <div class="two fields">
-            <div class="field">
               <label>School</label>
               <div class="ui search selection dropdown">
                 <input name="country" type="hidden">
                 <i class="dropdown icon"></i>
-                <div class="default text">Search for a country</div>
+                <div class="default text">Search for a school</div>
                 <div class="menu">
                   <div class="item" data-value="0">Savonia University of Applied Sciences</div>
                   <div class="item" data-value="1">Ostbayerische Technische Hochschule Regensburg</div>
@@ -83,12 +58,27 @@
         </form>
       </div>
     </div>
+
+    <!--Kokemuksien modaali-->
+    <div id="infomodal" class="ui modal">
+          <div class="header">Savonia AMK</div>
+          <div class="content">
+            <h4>Maa: <span class="modalsubtitle">Suomi</span></h4>
+            <h4>Kaupunki: <span class="modalsubtitle">Kuopio</span></h4>
+            <h4>Kokemuksia:</h4>
+            <div class="experience">
+                <h4>Nimi: <span class="modalsubtitle">Tuukka Heiskanen</span></h4>
+                <p id="kokemuslink" class="ui button">Linkki kokemukseen</p>
+            </div>
+          </div>
+    </div>
+    
     <div id="pdf-loader" class="pdf-loader-container shadow-medium">
         <h2>Loading PDF...</h2>
-        <div class="pdf-loader">
-          
-        </div>
+        <div class="pdf-loader"></div>
     </div>
+
+
     <div id="pdfviewer" class="pdf-viewer">
       <span id="pdf-close" class="fa fa-times pdf-viewer-close"></span>
       <canvas id="pdf-canvas"></canvas>
