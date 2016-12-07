@@ -407,6 +407,16 @@ function getSchools() {
     });
 }
 
+function getSchools() {
+  $.ajax({
+    method: "GET",
+    url: "api/getExp.php"
+  })
+    .done(function(response) {
+      var exp = JSON.parse(response);
+    });
+}
+
 function setMarkers(schools) {
   for(var i = 0; i < schools.length; i++){
     findSchool(schools[i]);
