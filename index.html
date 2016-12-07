@@ -42,18 +42,28 @@
                 </div>
               </div>
             </div>
+
             <div class="field">
               <label>School</label>
+             <!-- <div class="ui search selection dropdown"> -->
+                <input name="school" type="hidden">
+                  <select class="ui search selection dropdown" id="schoolmenu">
+                  <option selected disabled value="">Search for a school</option>
+                  </select>
+              <!--</div>-->
+            </div>
+            <!--
+            <div class="dropdown">
+              <label>School</label>
               <div class="ui search selection dropdown">
-                <input name="country" type="hidden">
+                <input name="school" type="hidden">
                 <i class="dropdown icon"></i>
                 <div class="default text">Search for a school</div>
-                <div class="menu">
-                  <div class="item" data-value="0">Savonia University of Applied Sciences</div>
-                  <div class="item" data-value="1">Ostbayerische Technische Hochschule Regensburg</div>
+                <div class="menu" id="schoolmenu">
                 </div>
               </div>
             </div>
+            -->
           </div>
         </form>
       </div>

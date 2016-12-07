@@ -286,6 +286,13 @@ function initMap () {
   // Create a map object and specify the DOM element for display.
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
   $('.controls').height(($(window).height() / 3) * 1 - headerHeight);
+
+  var e = document.getElementById("schoolmenu");
+  var pl_id = e.value;
+  console.log(e.value);
+  if(pl_id != '') {
+    focusSchool(pl_id, map);
+  }
 }
 
 
@@ -303,9 +310,25 @@ function focusCountry (index) {
       new google.maps.LatLng(countries[index].sw_lat, countries[index].sw_lng),
       new google.maps.LatLng(countries[index].ne_lat, countries[index].ne_lng)
     );
-
     map.fitBounds(bounds);
   });
+}
+
+
+function focusSchool(index, map) {
+var geocoder = new google.maps.Geocoder;
+geocoder.geocode({'placeId': index}, function(results, status) {
+  if (status === 'OK') {
+    if (results[0]) {
+      map.setZoom(11);
+      map.setCenter(results[0].geometry.location);
+    } else {
+      window.alert('No results found');
+    }
+  } else {
+    window.alert('Geocoder failed due to: ' + status);
+  }
+});
 }
 
 function init () {
@@ -338,7 +361,6 @@ function init () {
 
 function findSchool(school) {
   var service = new google.maps.places.PlacesService(map);
-
   service.getDetails({
     placeId: school.place_id
   }, function(place, status) {
@@ -407,9 +429,20 @@ function getSchools() {
     });
 }
 
+function setDropdowns(schools) {
+  var select = document.getElementById('schoolmenu');
+  var option = document.createElement('option');
+  option.value = schools.place_id;
+  option.id = schools.id;
+  option.text = schools.name;
+  console.log(option.text);
+  select.add(option, 0);
+}
+
 function setMarkers(schools) {
   for(var i = 0; i < schools.length; i++){
     findSchool(schools[i]);
+    setDropdowns(schools[i]);
   }
 }
 
@@ -536,6 +569,10 @@ $(document).ready(function () {
     if (!isNaN(evt.target.value)) {
       focusCountry(parseInt(evt.target.value));
     }
+  });
+
+  $('#schoolmenu').on('change', function () {
+    initMap();
   });
 
   getSchools();
