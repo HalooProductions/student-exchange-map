@@ -14,6 +14,7 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="css/semantic.min.css">
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/dropzone.css">
   <meta charset="UTF-8">
   <title>Document</title>
 </head>
@@ -48,7 +49,7 @@
               <td><?= $school['name'] ?></td>
               <td>
                 <div class="centered">
-                  <button class="ui button green school-add-pdf-btn">Lisää PDF</button>
+                  <button id="add-pdf-btn" class="ui button green pdf-btn">Lisää PDF</button>
                   <button class="ui button yellow school-edit-btn" data-id="<?= $school['id'] ?>" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments1="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
                   <button class="ui button red school-delete-btn" data-id="<?= $school['id'] ?>">Poista</button>
                 </div>
@@ -59,27 +60,17 @@
     </table>
   </div>
 </div>
-<div id="pdfmodal" class="ui modal">
-  <div class="header">Lisää opiskelijan vaihtokokemus PDF</div>
-  <div class="content">
-    <div class="ui form">
-      <label for="pdf-input" class="ui button green">Avaa PDF</label>
-      <input type="file" id="pdf-input" class="pdf-input" onchange="">
-    </div>
-    <div id="saveschool" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
-  </div>
-</div>
-<div id="addmodal" class="ui modal">
+<div id="addmodal" class="ui modal addmodal" name="addschoolmodal">
   <div class="header">Lisää koulu</div>
   <div class="content">
     <div class="ui form">
       <div class="field">
           <label>Koulun nimi</label>
-          <input id="addschoolname" type="text" name="school-name" placeholder="Koulun nimi">
+          <input id="addschoolname" type="text" name="schoolname" placeholder="Koulun nimi">
       </div>
       <div class="field">
         <label>Kaupunki</label>
-        <select id="addcity" class="ui search dropdown">
+        <select id="addcity" name="cityname" class="ui search dropdown">
           <option value="">Valitse kaupunki</option>
           <option value="1">Regensburg</option>
           <option value="2">Kuopio</option>
@@ -87,7 +78,7 @@
       </div>
       <div class="field">
           <label>Maa</label>
-          <select id="addcountry" class="ui search dropdown">
+          <select id="addcountry" name="countryname" class="ui search dropdown">
             <option value="">Valitse maa</option>
             <option value="1">Suomi</option>
             <option value="2">Ruotsi</option>
@@ -97,7 +88,7 @@
       <div class="field">
         <label>Sijainti</label>
         <button id="create-set-placeid" class="ui button teal">Aseta sijainti</button>
-        <span id="place-id-set-create">Ei asetettu</span>
+        <span id="place-id-set-create" name="setplaceid">Ei asetettu</span>
       </div>
       <div class="inline field">
           <div class="ui toggle checkbox">
@@ -151,17 +142,17 @@
     <div id="saveschool" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
   </div>
 </div>
-<div id="editmodal" class="ui modal">
+<div id="editmodal" class="ui modal editmodal">
   <div class="header">Muokkaa koulua</div>
   <div class="content">
     <div class="ui form">
       <div class="field">
           <label>Koulun nimi</label>
-          <input id="school-input" type="text" name="school-name" placeholder="Koulun nimi">
+          <input id="school-input" type="text" name="schoolname1" placeholder="Koulun nimi">
       </div>
       <div class="field">
         <label>Kaupunki</label>
-        <select id="city-input" class="ui search dropdown">
+        <select id="city-input" name="cityname1" class="ui search dropdown">
           <option value="">Valitse kaupunki</option>
           <option value="1">Regensburg</option>
           <option value="2">Kuopio</option>
@@ -169,7 +160,7 @@
       </div>
       <div class="field">
           <label>Maa</label>
-          <select id="country-input" class="ui search dropdown">
+          <select id="country-input" name="countryname1" class="ui search dropdown">
             <option value="">Valitse maa</option>
             <option value="1">Suomi</option>
             <option value="2">Ruotsi</option>
@@ -233,6 +224,15 @@
     <div id="save-edit" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
   </div>
 </div>
+<div id="pdf-modal" class="ui modal">
+  <div class="header">Lisää PDF</div>
+  <div class="content">
+    <form action="api/pdfupload.php"
+          class="dropzone"
+          id="pdfdropzone"></form>
+    <div id="save-pdf" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
+  </div>
+</div>
 <div id="place-id-selector">
   <input id="pac-input" class="place-id-controls" type="text"
           placeholder="Enter a location">
@@ -243,6 +243,7 @@
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
+<script src="js/dropzone.js"></script>
 <script src="js/edit.js"></script>  
 <script src="js/semantic.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U&libraries=places"
