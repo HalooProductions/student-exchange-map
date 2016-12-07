@@ -428,7 +428,6 @@ function getSchools() {
     });
 }
 
-<<<<<<< HEAD
 function setDropdowns(schools) {
   var select = document.getElementById('schoolmenu');
   var option = document.createElement('option');
@@ -436,7 +435,7 @@ function setDropdowns(schools) {
   option.id = schools.id;
   option.text = schools.name;
   select.add(option, 0);
-=======
+
 function getSchools() {
   $.ajax({
     method: "GET",
@@ -445,7 +444,6 @@ function getSchools() {
     .done(function(response) {
       var exp = JSON.parse(response);
     });
->>>>>>> 32bf5d642f18bbc4de6ceee8d456a39947ef1b30
 }
 
 function setMarkers(schools) {
