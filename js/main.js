@@ -281,6 +281,7 @@ var mapOptions = {
 var map;
 var google;
 
+var storeSchools;
 
 function initMap () {
   // Create a map object and specify the DOM element for display.
@@ -424,6 +425,7 @@ function getSchools() {
   })
     .done(function(response) {
       var schools = JSON.parse(response);
+      storeSchools = schools;
       setMarkers(schools);
     });
 }
@@ -437,7 +439,7 @@ function setDropdowns(schools) {
   select.add(option, 0);
 }
 
-function getSchools() {
+function getExp() {
   $.ajax({
     method: "GET",
     url: "api/getExp.php"
@@ -576,12 +578,18 @@ $(document).ready(function () {
   $('.ui.dropdown').on('change', function (evt) {
     if (!isNaN(evt.target.value)) {
       focusCountry(parseInt(evt.target.value));
+      for(var i = 0; i < storeSchools.length; i++){
+        findSchool(storeSchools[i]);
+      }
     }
   });
 
   $('#schoolmenu').on('change', function () {
     initMap();
+    for(var i = 0; i < storeSchools.length; i++){
+      findSchool(storeSchools[i]);
+    }
   });
 
-  getSchools();
+    getSchools();
 });
