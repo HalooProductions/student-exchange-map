@@ -7,6 +7,17 @@ $(document).ready(function () {
 		closable: false,
 	}).modal('show');
 
+	$("#username").keyup(function(event){
+		if(event.keyCode == 13){
+			$("#log").click();
+		}
+	});
+
+	$("#password").keyup(function(event){
+		if(event.keyCode == 13){
+			$("#log").click();
+		}
+	});
 
 	$("#log").click(function() {
 		var username = $("#username").val();

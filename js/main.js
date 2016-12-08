@@ -435,6 +435,7 @@ function setDropdowns(schools) {
   option.id = schools.id;
   option.text = schools.name;
   select.add(option, 0);
+}
 
 function getSchools() {
   $.ajax({
