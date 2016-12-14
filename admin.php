@@ -1,5 +1,6 @@
-<!DOCTYPE html>
 <?php
+  session_start();
+
   include_once('api/DB.php');
   include_once('api/School.php');
   
@@ -8,7 +9,15 @@
   
   $schools = new School($conn);
   $schools = $schools->get(['1' => '1']);
+
+  if ($_SESSION["s41pt"] !== "985737xz7v8z8sdf859724")
+  {
+      header('Location: login.html');
+  }
+  
+
 ?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -24,6 +33,11 @@
   </div>
   <div class="item">
     <div id="add-school-btn" class="ui primary button">Lisää koulu</div>
+  </div>
+  <div class="right menu">
+    <div class="item">
+      <a href="api/login.php?logout=true" id="logout" class="ui primary button ">Kirjaudu ulos</a>
+    </div>
   </div>
 </div>
 <div class="ui grid container">
