@@ -11,7 +11,7 @@ class DB
 		$this->db = new PDO('mysql:host=localhost;dbname=' . $this->dbname . ';charset=utf8mb4', $this->loginName, $this->password);
 	}
 
-	function get($table, $options = []) {
+	function get($table, $options = [], $order = NULL) {
 		$query = "SELECT * FROM $table WHERE ";
 		
 		$i = 0;
@@ -23,6 +23,10 @@ class DB
 				$query .= $key . ' = ' . $this->db->quote($option);
 			}
 			$i++;
+		}
+
+		if ($order !== NULL) {
+			$query .= " ORDER BY $order";
 		}
 
 		$result = $this->db->query($query);

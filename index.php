@@ -9,6 +9,8 @@
   
   $schools = new School($conn);
   $schools = $schools->get(['1' => '1']);
+
+  $countries = $conn->get('countries', ['1' => '1'], 'name');
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,13 +55,16 @@
           <div class="two fields">
             <div class="field">
               <label>Country</label>
-              <div class="ui search selection dropdown">
+              <div class="ui search selection dropdown" id="country-dropdown">
                 <input name="country" type="hidden">
                 <i class="dropdown icon"></i>
                 <div class="default text">Search for a country</div>
                 <div class="menu">
-                  <div class="item" data-value="0"><i class="af flag"></i>Afghanistan</div>
-                  <div class="item" data-value="1"><i class="al flag"></i>Albania</div>
+                  <?php 
+                    foreach ($countries as $key => $country) {
+                      echo '<div class="item" data-value="' . $country['place_id'] . '">' . $country['name'] . '</div>';
+                    }
+                  ?>
                 </div>
               </div>
             </div>
@@ -73,18 +78,6 @@
                   </select>
               <!--</div>-->
             </div>
-            <!--
-            <div class="dropdown">
-              <label>School</label>
-              <div class="ui search selection dropdown">
-                <input name="school" type="hidden">
-                <i class="dropdown icon"></i>
-                <div class="default text">Search for a school</div>
-                <div class="menu" id="schoolmenu">
-                </div>
-              </div>
-            </div>
-            -->
           </div>
         </form>
       </div>

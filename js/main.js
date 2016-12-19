@@ -301,21 +301,15 @@ function initMap () {
 }
 
 
-function focusCountry (index) {
-  $.getJSON('data/countries.json', function (countries) {
-    var myOptions = {
-      center: new google.maps.LatLng(
-        countries[index].center_lat,
-        countries[index].center_lng),
+function focusCountry (country, map) {
+  var geocoder = new google.maps.Geocoder;
+  geocoder.geocode({'placeId': country}, function(results, status) {
+    if (status === 'OK') {
+      if (results[0]) {
+        map.setZoom(4);
+        map.setCenter(results[0].geometry.location);
       }
-
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    var bounds = new google.maps.LatLngBounds(
-      new google.maps.LatLng(countries[index].sw_lat, countries[index].sw_lng),
-      new google.maps.LatLng(countries[index].ne_lat, countries[index].ne_lng)
-    );
-    map.fitBounds(bounds);
+    }
   });
 }
 
@@ -591,13 +585,12 @@ function unloadPDF() {
 $(document).ready(function () {
   $('.ui.dropdown').dropdown();
 
-  $('.ui.dropdown').on('change', function (evt) {
-    if (!isNaN(evt.target.value)) {
-      focusCountry(parseInt(evt.target.value));
-      for(var i = 0; i < storeSchools.length; i++){
-        findSchool(storeSchools[i]);
-      }
-    }
+  $('#country-dropdown').on('change', function (evt) {
+    focusCountry(evt.target.value, map);
+
+    /*for(var i = 0; i < storeSchools.length; i++){
+      findSchool(storeSchools[i]);
+    }*/
   });
 
   $('#schoolmenu').on('change', function () {
