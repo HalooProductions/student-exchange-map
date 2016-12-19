@@ -22,25 +22,7 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---
--- Rakenne taululle `cities`
---
 
-CREATE TABLE `cities` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `place_id` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Vedos taulusta `cities`
---
-
-INSERT INTO `cities` (`id`, `name`, `place_id`) VALUES
-(1, 'Regensburg', 'ChIJ9y4icpjBn0cREMs3CaQlHQQ'),
-(2, 'Kuopio', 'ChIJ88T-r4qwhEYRwPbfnn33tuc');
-
--- --------------------------------------------------------
 
 --
 -- Rakenne taululle `countries`
@@ -100,7 +82,7 @@ CREATE TABLE `schools` (
   `name` varchar(255) NOT NULL,
   `place_id` varchar(255) NOT NULL,
   `country` int(11) NOT NULL,
-  `city` int(11) NOT NULL
+  `city` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -159,12 +141,6 @@ INSERT INTO `users` (`id`, `username`, `password`, `display_name`) VALUES
 --
 
 --
--- Indexes for table `cities`
---
-ALTER TABLE `cities`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
@@ -183,8 +159,7 @@ ALTER TABLE `departments`
 --
 ALTER TABLE `schools`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `country_id` (`country`),
-  ADD KEY `city_id` (`city`);
+  ADD KEY `country_id` (`country`);
   
 --
 -- Indexes for table `experiences`
@@ -210,11 +185,6 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `cities`
---
-ALTER TABLE `cities`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `countries`
 --
@@ -252,7 +222,6 @@ ALTER TABLE `experiences`
 -- Rajoitteet taululle `schools`
 --
 ALTER TABLE `schools`
-  ADD CONSTRAINT `fk_school_city` FOREIGN KEY (`city`) REFERENCES `cities` (`id`),
   ADD CONSTRAINT `fk_school_country` FOREIGN KEY (`country`) REFERENCES `countries` (`id`);
 
 --

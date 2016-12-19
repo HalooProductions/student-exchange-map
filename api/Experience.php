@@ -2,21 +2,18 @@
 
 include_once('Collection.php');
 
-class School 
+class Experience 
 {
 	public $id = 0;
-	public $name;
-	public $country;
-	public $city;
-	public $place_id;
-	public $departments;
+	public $url;
+	public $writer;
+	public $school_id;
 	private $conn;
 
 	protected $required = [
-		'name',
-		'country',
-		'city',
-		'place_id'
+		'url',
+		'writer',
+		'school_id',
 	];
 
 	function __construct($db_connection) {
@@ -37,13 +34,6 @@ class School
 		$checks = 0;
 		$checkLimit = count($data);
 
-		if (isset($data['departments'])) {
-			$checkLimit--;
-		}
-		if (isset($data['id'])) {
-			$checkLimit--;
-		}
-
 		foreach ($data as $key => $value) {
 			if (in_array($key, $this->required)) {
 				$checks++;
@@ -54,11 +44,6 @@ class School
 			throw new Exception("Error updating school object: Invalid field(s)!");
 		} else {
 			foreach ($data as $key => $value) {
-				if ($key === 'departments') {
-					foreach ($value as $k => $val) {
-						$value[$k] = strval($val);
-					}
-				}
 				if($key != 'id')
 				{
 					$this->{$key} = $value;	
@@ -89,14 +74,9 @@ class School
 			$this->id = $data['id'];
 		}
 
-		$this->name = $data['name'];
-		$this->country = $data['country'];
-		$this->city = $data['city'];
-		$this->place_id = $data['place_id'];
-
-		if (isset($data['departments'])) {
-			$this->departments = $data['departments'];
-		}
+		$this->url = $data['url'];
+		$this->writer = $data['writer'];
+		$this->school_id = $data['school_id'];
 
 		return $this;
 	}
@@ -106,7 +86,7 @@ class School
 			throw new Exception("Error with deleting school object: id not found !");
 		} else {
 			$this->conn->delete("school_has_department", $this->id, "school_id");		
-			$this->conn->delete("schools", $this->id);
+			$this->conn->delete("experiences", $this->id);
 		}
 	}
 
@@ -121,42 +101,23 @@ class School
 	function save() {
 		if ($this->id !== 0) {
 			$id = $this->conn->update(
-				'schools', 
+				'experiences', 
 				[
 					'col' => 'id',
 					'val' => $this->id
 				], 
 				[
-					'name' => $this->name, 
-					'country' => $this->country, 
-					'city' => $this->city, 
-					'place_id' => $this->place_id
+					'url' => $this->url, 
+					'writer' => $this->writer, 
+					'school_id' => $this->school_id, 
 				]
 			);
-
-			$this->conn->delete('school_has_department', $this->id, 'school_id');
-			
-			foreach ($this->departments as $key => $department) {
-				$this->conn->create(
-					'school_has_department', 
-					['school_id', 'department_id'],
-					[$this->id, $department]
-				);
-			}
 		} else {
 			$id = $this->conn->create(
-				'schools', 
-				['name', 'country', 'city', 'place_id'], 
-				[$this->name, $this->country, $this->city, $this->place_id]
+				'experiences', 
+				['url', 'writer', 'school_id'], 
+				[$this->url, $this->writer, $this->school_id]
 			);
-
-			foreach ($this->departments as $key => $department) {
-				$this->conn->create(
-					'school_has_department', 
-					['school_id', 'department_id'],
-					[$id, $department]
-				);
-			}
 		}
 
 		// Ei varma toimiiko, exceptionit olisi parempi laittaa DB classista ja ottaa kiinni täällä?
@@ -166,16 +127,13 @@ class School
 	}
 	
 	function where($params) {
-		$records = $this->conn->get('schools', $params);
+		$records = $this->conn->get('experiences', $params);
 		$returnCollection = new Collection([]);
 
 		if (count($records) > 0) {
 			foreach ($records as $key => $record) {
-				$tmp = new School($this->conn);
+				$tmp = new Experience($this->conn);
 				$tmp->create($record);
-				$departments = $this->conn->get('school_has_department', ['school_id' => $record['id']]);				
-				$departments_plucked = array_column($departments, 'department_id');
-				$tmp->update(['departments' => $departments_plucked]);
 				$returnCollection->push($tmp);
 			}
 		} else {
@@ -186,24 +144,17 @@ class School
 	}
 
 	function get($params) {
-		$records = $this->conn->get('schools', $params);
+		$records = $this->conn->get('experiences', $params);
 		$returnCollection = new Collection([]);
 		if(count($records) > 0) {
 			foreach ($records as $key => $record) {
-				$tmp = new School($this->conn);
+				$tmp = new Experience($this->conn);
 				$tmp->create($record);
-				$departments = $this->conn->get('school_has_department', ['school_id' => $record['id']]);			
-				$departments_plucked = array_column($departments, 'department_id');
-				$tmp->update(['departments' => $departments_plucked]);
-				$tmpcountry = $this->conn->get('countries', ['id' => $tmp->country]);
 				
 				$fixedtmp = array(
-					"id" => $tmp->id,
-					"name" => $tmp->name,
-					"country" => $tmpcountry[0]['name'],
-					"city" => $tmp->city,
-					"place_id" => $tmp->place_id,
-					"departments" => $tmp->departments,
+					"url" => $tmp->url,
+					"writer" => $tmp->writer,
+					"school_id" => $tmp->school_id,
 					);
 				$returnCollection->push($fixedtmp);
 			}

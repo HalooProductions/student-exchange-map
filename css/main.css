@@ -332,3 +332,26 @@
 		margin-left: 0px !important;
   	}
 }
+.modalsubtitle {
+	 font-weight: normal;
+}
+.headermodal {
+	margin-top: 0% !important;
+	margin-bottom: 5px;
+}
+#kokemuslink {
+	margin-top: 0%;
+}
+.experience {
+	margin-bottom: 10px;
+	margin-top:20px;
+}
+
+.bottom  {
+	margin-bottom: 5px;
+}
+.pair {
+	float: left;
+	margin-right: 4%;
+	margin-bottom: 10px;
+}
