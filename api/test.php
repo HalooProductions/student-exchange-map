@@ -2,11 +2,26 @@
 
 include_once('DB.php');
 include_once('School.php');
+include_once('Experience.php');
 
 $conn = new DB;
 $conn->connect();
 
-$a = new School($conn);
+$a = new Experience($conn);
+
+$a = $a->where([
+    'school_id' => 2
+])->first();
+$a->update([
+    'writer' => 'Pentti'
+    ])->save();
+/*$a->create([
+    'url' => 'asd',
+    'writer' => 'Erkki',
+    'school_id' => 2
+])->save();*/
+
+//$a = new School($conn);
 
 /*$asd->create([
 	'name' => 'Savonia Ammattikorkeakoulu',
@@ -21,7 +36,7 @@ echo $asd->name;*/
 /*var_dump($asd->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28']));
 var_dump($asd->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first());
 var_dump($asd->where(['place_id' => 'ChIJUYf0dHe6hEYRKaYg4vlkF28'])->first()->name);*/
-$a->create([
+/*$a->create([
     'name' => 'Savonia Ammattikoulu',
     'country' => 1,
     'city' => 'Kuopio',
@@ -49,4 +64,4 @@ try {
     echo $c->name;
 } catch (Exception $e){
     $message = $e->getMessage();
-}
+}*/

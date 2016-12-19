@@ -76,11 +76,7 @@ class Experience
 
 		$this->url = $data['url'];
 		$this->writer = $data['writer'];
-		$this->School_id = $data['school_id'];
-
-		if (isset($data['departments'])) {
-			$this->departments = $data['departments'];
-		}
+		$this->school_id = $data['school_id'];
 
 		return $this;
 	}
