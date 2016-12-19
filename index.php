@@ -1,5 +1,14 @@
 <?php
   session_start();
+
+  include_once('api/DB.php');
+  include_once('api/School.php');
+  
+  $conn = new DB;
+  $conn->connect();
+  
+  $schools = new School($conn);
+  $schools = $schools->get(['1' => '1']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,6 +27,9 @@
         <span class="item">
           Exchange Locations
         </span>
+        <div class="item">
+        <button id="contactbutton" class="ui yellow button">Contacts</button>
+        </div>
         <div class="right menu">
         <?php if(isset($_SESSION["s41pt"]) && $_SESSION["s41pt"] === "985737xz7v8z8sdf859724") : ?>
           <div class="item">
@@ -80,11 +92,11 @@
 
     <!--Kokemuksien modaali-->
     <div id="experience-modal" class="ui modal small">
-          <div class="header">Savonia AMK</div>
+          <div class="header" id="expschool">lol</div>
           <div class="content" id="pdf-content">
-            <h4>Maa: <span class="modalsubtitle">Suomi</span></h4>
-            <h4>Kaupunki: <span class="modalsubtitle">Kuopio</span></h4>
-            <h4 style="margin-bottom: 5px;">Kokemuksia:</h4>
+            <h4>Country: <span id="expcountry" class="modalsubtitle"></span></h4>
+            <h4>City: <span id="expcity" class="modalsubtitle"></span></h4>
+            <h4 style="margin-bottom: 5px;">Experiences:</h4>
           </div>
     </div>
     
@@ -93,6 +105,28 @@
         <div class="pdf-loader"></div>
     </div>
 
+    <!-- Yhteystietomodaali-->
+    <div id="contactmodal" class="ui modal">
+      <div class="header">Contact List</div>
+      <div class="content">
+        <h4>Savonia Engineering Exchange Coordinator:<br><span class="modalsubtitle">Soile Takkunen, Opistotie Campus, A-1036,  phone 044 7856298</span></h4>
+        <h4>Energy Engineering:<br><span class="modalsubtitle">
+        Ritva Käyhkö, Varkaus Campus, phone 044 785 6767 <br>
+        Olli-Pekka Kähkönen, Varkaus Campus, phone 044 785 6752</span></h4>
+        <h4>Machine Engineering:<br><span class="modalsubtitle">
+        Jarmo Pyysalo (Industrial Management), phone 044 785 6781 <br>
+        Anssi Suhonen (Research & developement), Opi-B-3112, phone 044 785 5558</span></h4>
+        <h4>Construction Engineering:<br><span class="modalsubtitle">
+        Ville Kuusela, Opi-A-2086, phone 044 785 6321 <br>
+        Janne Repo (Building Architect), Opi-A-2080, phone 055 785 6356</span></h4>
+        <h4>Electrical Engineering:<br><span class="modalsubtitle">
+        Juhani Rouvali, Opi-B-1198, phone 044 785 6214</span></h4>
+        <h4>Information Technology:<br><span class="modalsubtitle">
+        Pekka Granroth, Opi-B-2153, phone 044 785 6941</span></h4>
+        <h4>Environmental Engineering:<br><span class="modalsubtitle">
+        Pasi Pajula, Microkadun kampus, phone 044 785 6361</span></h4>
+      </div>
+    </div>
 
     <div id="pdfviewer" class="pdf-viewer">
       <span id="pdf-close" class="fa fa-times pdf-viewer-close"></span>
