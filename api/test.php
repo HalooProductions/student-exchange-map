@@ -7,6 +7,15 @@ include_once('Experience.php');
 $conn = new DB;
 $conn->connect();
 
+$b = new School($conn);
+
+$b = $b->where([
+    'id' => '4'
+])->first();
+
+var_dump($b->getDepartments());
+
+/*
 $a = new Experience($conn);
 
 $a = $a->where([

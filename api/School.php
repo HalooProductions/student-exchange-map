@@ -27,6 +27,21 @@ class School
 		}
 	}
 
+	function getDepartments() {
+		$returnArr = [];
+
+		if (count($this->departments) > 0) {
+			foreach ($this->departments as $key => $department) {
+				$tmp = $this->conn->get('departments', ['id' => $department]);
+				if ($tmp !== NULL) {
+					$returnArr[] = $tmp[0];
+				}
+			}
+		}
+
+		return $returnArr;
+	}
+
 	function update($data) {
 		if ($this->id === 0) {
 			throw new Exception("Error updating school object: Trying to update a object which isnt in the database yet!");

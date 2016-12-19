@@ -376,10 +376,25 @@ function findSchool(school) {
         position: place.geometry.location
       });
 
+
       google.maps.event.addListener(marker, 'click', function() {
+
+      $.ajax({
+        method: "GET",
+        url: "api/getdepartments.php?school=" + school.id
+      }).done(function(response)  {
+        var deps = JSON.parse(response);
+        var depStr = '';
+        for (var i = deps.length - 1; i >= 0; i--) {
+          depStr += deps[i].name;
+          if(i > 0)
+          {
+            depStr += '<br>';
+          } 
+        }
         var contentString =
         '<h3>' + school.name + '</h3>'+
-        '<p>' + school.country + ', ' + school.city + '</p>'+
+        '<p>' + school.country + ', ' + school.city + '<h4 style="margin-top: 0px; margin-bottom: 0px;">Alat:</h4>' +'</p>' + depStr + '</p>' +
         '<button id="stories-btn" class="ui button">Stories</button>'
         ;
 
@@ -392,9 +407,14 @@ function findSchool(school) {
         });
 
         infowindow.open(map, marker);
+      });
+      
 
         setTimeout(function() {
           $('#stories-btn').click(function() {
+            $('#expschool').text(school.name);
+            $('#expcountry').text(school.country);
+            $('#expcity').text(school.city);
             $.ajax({
               method: "GET",
               url: "api/getExp.php?school=" + school.id
@@ -585,6 +605,10 @@ $(document).ready(function () {
     for(var i = 0; i < storeSchools.length; i++){
       findSchool(storeSchools[i]);
     }
+  });
+
+  $('#contactbutton').on('click', function(){
+    $('#contactmodal').modal('show');
   });
 
     getSchools();
