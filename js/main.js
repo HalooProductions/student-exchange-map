@@ -376,16 +376,6 @@ function findSchool(school) {
         position: place.geometry.location
       });
 
-
-
-      /*if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-        map.setZoom(5);
-      } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(5);
-      }*/
-
       google.maps.event.addListener(marker, 'click', function() {
         var contentString =
         '<h3>' + school.name + '</h3>'+
@@ -405,19 +395,27 @@ function findSchool(school) {
 
         setTimeout(function() {
           $('#stories-btn').click(function() {
-            modal();
+            $.ajax({
+              method: "GET",
+              url: "api/getExp.php?school=" + school.id
+            }).done(function(response) {
+              var exp = JSON.parse(response);
+              $('.experience-link').remove();
+              for (var i = 0, j = exp.length; i < j; i++) {
+                $('#pdf-content').append('<a class="experience-link" data-url="' + exp[i].url + '" href="#">' + exp[i].writer + '</a>');
+              }
+              $('#experience-modal').modal('show');
+              $('.experience-link').click(function(){
+                $('#experience-modal').modal('hide');
+                loadPDF(document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + '/pdfs/' + $(this).data('url'));
+              });
+            });
           });
         }, 500);
       });
     }
   });
 
-}
-
-function modal () {
-  $('.ui.modal').modal('show')
-  ;
-  $('#kokemuslink').click({pdfurl: "2016_TeKu_Tuukka Heiskanen_Netherlands.pdf"}, showPDF); 
 }
 
 function getSchools() {
@@ -441,16 +439,6 @@ function setDropdowns(schools) {
   select.add(option, 0);
 }
 
-function getExp() {
-  $.ajax({
-    method: "GET",
-    url: "api/getExp.php"
-  })
-    .done(function(response) {
-      var exp = JSON.parse(response);
-    });
-}
-
 function setMarkers(schools) {
   for(var i = 0; i < schools.length; i++){
     findSchool(schools[i]);
@@ -458,6 +446,11 @@ function setMarkers(schools) {
   }
 }
 
+function expLoop (exp) {
+  for(var i = 0; i < exp.length; i++){
+    setExp(exp[i]);
+  }
+}
 function loadPDF(url) {
   $('#pdf-loader').css('display', 'initial');
   $('#pdfcontrols').css('opacity', 100);
@@ -571,7 +564,7 @@ function unloadPDF() {
   $('#pdfcontrols').css('display', 'none');
   document.getElementById('pdf-viewer-prev').removeEventListener('click', onPrevPage);
   document.getElementById('pdf-viewer-next').removeEventListener('click', onNextPage);
-  $('#kokemuslink').off("click");
+  $('.experience-link').off("click");
   window.removeEventListener('scroll', pdfScrollChecker);
 }
 
