@@ -63,7 +63,7 @@
               <td><?= $school['name'] ?></td>
               <td>
                 <div class="centered">
-                  <button id="add-pdf-btn" class="ui button green pdf-btn">Lisää PDF</button>
+                  <button id="add-pdf-btn" class="ui button green pdf-btn" data-id="<?= $school['id'] ?>">Lisää PDF</button>
                   <button class="ui button yellow school-edit-btn" data-id="<?= $school['id'] ?>" data-country="<?= $school['country'] ?>" data-city="<?= $school['city'] ?>" data-school="<?= $school['name'] ?>" data-placeid="<?= $school['place_id'] ?>" data-departments1="<?= implode(',', $school['departments']) ?>">Muokkaa</button>
                   <button class="ui button red school-delete-btn" data-id="<?= $school['id'] ?>">Poista</button>
                 </div>
@@ -235,9 +235,12 @@
 <div id="pdf-modal" class="ui modal">
   <div class="header">Lisää PDF</div>
   <div class="content">
-    <form action="api/pdfupload.php"
+    <div class="ui input" style="margin-bottom: 10px;">
+      <input placeholder="Kirjoittajan nimi" id="pdf-writer-name" type="text">
+    </div>
+    <div action="api/pdfupload.php"
           class="dropzone"
-          id="pdfdropzone"></form>
+          id="pdfdropzone"></div>
     <div id="save-pdf" class="ui submit button green" style="margin-top: 15px;">Tallenna</div>
   </div>
 </div>
@@ -252,6 +255,9 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src="js/dropzone.js"></script>
+<script>
+  Dropzone.autoDiscover = false;
+</script>
 <script src="js/edit.js"></script>  
 <script src="js/semantic.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDaRfRL0VME9zL0OZrRNjiLxIMWgis-W5U&libraries=places"
