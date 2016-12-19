@@ -1,4 +1,12 @@
 $(document).ready(function(){
+  var pdfToSaveName = '';
+  var pdfEditingSchoolID;
+  var uploadSrcPath = document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + "api/pdfupload.php";
+  var dropzone = new Dropzone("div#pdfdropzone", { url: uploadSrcPath});
+  dropzone.on('success', function (file, response) {
+    pdfToSaveName = response + '.pdf';
+  });
+
   $(".school-edit-btn").click(function(){
     $('#editmodal').modal('show');
     $('#country-input').dropdown("set selected", $(this).data('country'));
@@ -90,6 +98,29 @@ $(document).ready(function(){
     for (var i = 1; i < 9; i++) {
       $("#addmodal .checkbox").find('[value=' + [i] + ']').prop("checked", false);
     }
+  });
+
+  $(".pdf-btn").click(function(){
+    pdfEditingSchoolID = $(this).data('id');
+    
+      $("#pdf-modal").modal("show");
+  });
+
+    $('#save-pdf').click(function() {
+    var writer = $('#pdf-writer-name').val();
+    $.ajax({
+      method: "POST",
+      url: "api/edit.php",
+      data: { 
+        schoolid: pdfEditingSchoolID,
+        writer: writer,
+        url: pdfToSaveName,
+        action: 3,
+      },
+      success: function(result){
+         location.reload(true);
+      }
+    });
   });
 
   $('.addmodal').form({
