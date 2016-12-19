@@ -102,11 +102,11 @@ $(document).ready(function(){
 
   $(".pdf-btn").click(function(){
     pdfEditingSchoolID = $(this).data('id');
-
-    $("#pdf-modal").modal("show");
+    
+      $("#pdf-modal").modal("show");
   });
 
-  $('#save-pdf').click(function() {
+    $('#save-pdf').click(function() {
     var writer = $('#pdf-writer-name').val();
     $.ajax({
       method: "POST",
