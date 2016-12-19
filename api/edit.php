@@ -2,8 +2,6 @@
 include_once('DB.php');
 include_once('School.php');
 include_once('Request.php');
-include_once('Experience.php');
-
 $conn = new DB;
 $conn->connect();
 
@@ -143,23 +141,6 @@ else if($action == 2)
 		$deleteschool->delete([
 			'id' => $schoolid,
 			]);
-	} catch (Exception $e) {
-		echo $e->getMessage();
-	}
-}
-else if ($action == 3)
-{
-	try {
-		$schoolid = $request->input('schoolid');
-		$writer = $request->input('writer');
-		$url = $request->input('url');
-
-		$experience = new Experience($conn);
-		$experience = $experience->create([
-			'writer' => $writer,
-			'url' => $url,
-			'school_id' => $schoolid
-		])->save();
 	} catch (Exception $e) {
 		echo $e->getMessage();
 	}

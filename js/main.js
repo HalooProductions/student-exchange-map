@@ -4,6 +4,11 @@ var onPrevPage;
 var pdfScrollChecker;
 var lastScroll = Date.now();
 var pdfControlsTimeoutFunc;
+var showPDF = function(event){
+  var pdfurl = event.data.pdfurl;
+  loadPDF(document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + pdfurl);
+  $('.ui.modal').modal('hide');
+};
 
 var settings = {
   viewHeight: ($(window).height() / 3) * 2,
@@ -412,10 +417,7 @@ function findSchool(school) {
 function modal () {
   $('.ui.modal').modal('show')
   ;
-  $('#kokemuslink').click(function(){
-    loadPDF(document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + '2016_TeKu_Tuukka Heiskanen_Netherlands.pdf');
-  $('.ui.modal').modal('hide');
-  }); 
+  $('#kokemuslink').click({pdfurl: "2016_TeKu_Tuukka Heiskanen_Netherlands.pdf"}, showPDF); 
 }
 
 function getSchools() {
@@ -569,6 +571,7 @@ function unloadPDF() {
   $('#pdfcontrols').css('display', 'none');
   document.getElementById('pdf-viewer-prev').removeEventListener('click', onPrevPage);
   document.getElementById('pdf-viewer-next').removeEventListener('click', onNextPage);
+  $('#kokemuslink').off("click");
   window.removeEventListener('scroll', pdfScrollChecker);
 }
 
