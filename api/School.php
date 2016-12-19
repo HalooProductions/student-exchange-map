@@ -105,7 +105,8 @@ class School
 		if ($this->id === 0) {
 			throw new Exception("Error with deleting school object: id not found !");
 		} else {
-			$this->conn->delete("school_has_department", $this->id, "school_id");		
+			$this->conn->delete("school_has_department", $this->id, "school_id");
+			$this->conn->delete("experiences", $this->id, "school_id");		
 			$this->conn->delete("schools", $this->id);
 		}
 	}
