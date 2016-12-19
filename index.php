@@ -79,16 +79,12 @@
     </div>
 
     <!--Kokemuksien modaali-->
-    <div id="infomodal" class="ui modal">
+    <div id="experience-modal" class="ui modal small">
           <div class="header">Savonia AMK</div>
-          <div class="content">
+          <div class="content" id="pdf-content">
             <h4>Maa: <span class="modalsubtitle">Suomi</span></h4>
             <h4>Kaupunki: <span class="modalsubtitle">Kuopio</span></h4>
-            <h4>Kokemuksia:</h4>
-            <div class="experience">
-                <h4>Nimi: <span class="modalsubtitle">Tuukka Heiskanen</span></h4>
-                <p id="kokemuslink" class="ui button">Linkki kokemukseen</p>
-            </div>
+            <h4 style="margin-bottom: 5px;">Kokemuksia:</h4>
           </div>
     </div>
     
