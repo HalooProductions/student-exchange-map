@@ -12,21 +12,21 @@
   <body>
     <div class="header-container shadow-small">
       <div class="ui secondary menu main-menu">
-        <a class="item logo-item menu">
+        <a class="item logo-item menu" href="index.php">
           <img src="img/SAVONIA_logo.jpg" class="logo-img" alt="Savonia University of Applied Sciences logo" style="width: 100px">
         </a>
         <span class="item">
           Exchange Locations
         </span>
         <div class="right menu">
-        <?php if($_SESSION["s41pt"] !== "985737xz7v8z8sdf859724") : ?>
-          <a href="login.html" class="ui item">
-            Kirjaudu
-          </a>
-        <?php else : ?>
+        <?php if(isset($_SESSION["s41pt"]) && $_SESSION["s41pt"] === "985737xz7v8z8sdf859724") : ?>
           <div class="item">
             <a href="api/login.php?logout=true" id="logout" class="ui primary button ">Kirjaudu ulos</a>
           </div>
+        <?php else : ?>
+          <a href="login.html" class="ui item">
+            Kirjaudu
+          </a>
         <?php endif; ?>
         </div>
       </div>
