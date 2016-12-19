@@ -9,7 +9,7 @@ $conn->connect();
 if (isset($_GET["logout"]) && $_GET["logout"] === "true")
 {
 	$_SESSION["s41pt"] = "";
-	header('Location: ../index.html');
+	header('Location: ../index.php');
 }
 else
 {

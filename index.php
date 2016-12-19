@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,9 +19,15 @@
           Exchange Locations
         </span>
         <div class="right menu">
+        <?php if($_SESSION["s41pt"] !== "985737xz7v8z8sdf859724") : ?>
           <a href="login.html" class="ui item">
             Kirjaudu
           </a>
+        <?php else : ?>
+          <div class="item">
+            <a href="api/login.php?logout=true" id="logout" class="ui primary button ">Kirjaudu ulos</a>
+          </div>
+        <?php endif; ?>
         </div>
       </div>
     </div>
@@ -42,48 +51,7 @@
                 </div>
               </div>
             </div>
-            <div class="field">
-              <label>City</label>
-              <div class="ui search selection dropdown">
-                <input name="city" type="hidden">
-                <i class="dropdown icon"></i>
-                <div class="default text">Search for a city</div>
-                <div class="menu">
-                  <div class="item" data-value="0">Stockholm</div>
-                  <div class="item" data-value="1">Helsinki</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="infomodal" class="ui modal expmodal">
-                <div class="header">Savonia AMK</div>
-                <div class="content">
-                  <h4 class="bottom">Maa: <span class="modalsubtitle">Suomi</span></h4>
-                  <h4 class="headermodal">Kaupunki: <span class="modalsubtitle">Kuopio</span></h4>
-                  <h4 class="headermodal rakonen">Kokemuksia:</h4>
-                  <div class="pair">
-                    <div class="experience">
-                        <h4 class="headermodal">Nimi: <span class="modalsubtitle">Tuukka Heiskanen</span></h4>
-                        <p id="kokemuslink" class="ui button">Linkki kokemukseen</p>
-                    </div>
-                    <div class="experience">
-                        <h4 class="headermodal">Nimi: <span class="modalsubtitle">Yrjö Jormakka</span></h4>
-                        <p id="kokemuslink" class="ui button">Linkki kokemukseen</p>
-                    </div>
-                  </div>
-                  <div class="pair">
-                    <div class="experience">
-                        <h4 class="headermodal">Nimi: <span class="modalsubtitle">Juha Taskinen</span></h4>
-                        <p id="kokemuslink" class="ui button">Linkki kokemukseen</p>
-                    </div>
-                    <div class="experience">
-                        <h4 class="headermodal">Nimi: <span class="modalsubtitle">Anu Saukko</span></h4>
-                        <p id="kokemuslink" class="ui button">Linkki kokemukseen</p>
-                    </div>
-                </div>
-              </div>
-            </div>
-          <div class="two fields">
+
             <div class="field">
               <label>School</label>
              <!-- <div class="ui search selection dropdown"> -->

@@ -29,7 +29,7 @@
 <body>
 <div class="ui menu">
   <div class="item">
-    <a href="index.html" class="ui button">Karttanäkymä</a>
+    <a href="index.php" class="ui button">Karttanäkymä</a>
   </div>
   <div class="item">
     <div id="add-school-btn" class="ui primary button">Lisää koulu</div>
