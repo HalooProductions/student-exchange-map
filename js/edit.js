@@ -103,7 +103,9 @@ $(document).ready(function(){
   $(".pdf-btn").click(function(){
     pdfEditingSchoolID = $(this).data('id');
     
-      $("#pdf-modal").modal("show");
+    $("#pdf-modal").modal("show");
+
+    alert('PDF tiedostojen lataaminen ei toimi codezilla käyttöoikeuksista johtuen!');
   });
 
     $('#save-pdf').click(function() {

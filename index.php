@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/semantic.min.css">
     <link rel="stylesheet" href="css/main.css">
     <meta charset="utf-8">
+    <title>Map - Savonia Student Exchange</title>
   </head>
   <body>
     <div class="header-container shadow-small">
@@ -35,11 +36,14 @@
         <div class="right menu">
         <?php if(isset($_SESSION["s41pt"]) && $_SESSION["s41pt"] === "985737xz7v8z8sdf859724") : ?>
           <div class="item">
-            <a href="api/login.php?logout=true" id="logout" class="ui primary button ">Kirjaudu ulos</a>
+            <a href="admin.php" class="ui green button">Admin view</a>
+          </div>
+          <div class="item">
+            <a href="api/login.php?logout=true" id="logout" class="ui primary button">Log out</a>
           </div>
         <?php else : ?>
           <a href="login.html" class="ui item">
-            Kirjaudu
+            Log in
           </a>
         <?php endif; ?>
         </div>

@@ -2,9 +2,9 @@
 
 class DB 
 {
-	var $dbname = 'kartta';
-	var $loginName = 'root';
-	var $password = '';
+	var $dbname = 'projekti2_2016_syksy_halooproductions';
+	var $loginName = 'dbadmin16shp';
+	var $password = 'ESJXwnEqxvZY5CNP';
 	var $db;
 
 	function connect() {

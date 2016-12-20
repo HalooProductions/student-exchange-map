@@ -15,6 +15,8 @@
       header('Location: login.html');
   }
   
+  $countries = $conn->get('countries', ['1' => '1'], 'name');
+
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +27,7 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/dropzone.css">
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>Admin View - Savonia Student Exchange</title>
 </head>
 <body>
 <div class="ui menu">
@@ -90,9 +92,11 @@
           <label>Maa</label>
           <select id="addcountry" name="countryname" class="ui search dropdown">
             <option value="">Valitse maa</option>
-            <option value="1">Suomi</option>
-            <option value="2">Ruotsi</option>
-            <option value="3">Saksa</option>
+            <?php 
+              foreach ($countries as $key => $country) {
+                echo '<option value="' . $country['id'] . '">' . $country['name'] . '</option>';
+              }
+            ?>
           </select>
       </div>
       <div class="field">
@@ -170,9 +174,11 @@
           <label>Maa</label>
           <select id="country-input" name="countryname1" class="ui search dropdown">
             <option value="">Valitse maa</option>
-            <option value="1">Suomi</option>
-            <option value="2">Ruotsi</option>
-            <option value="3">Saksa</option>
+            <?php 
+              foreach ($countries as $key => $country) {
+                echo '<option value="' . $country['id'] . '">' . $country['name'] . '</option>';
+              }
+            ?>
           </select>
       </div>
       <div class="field">

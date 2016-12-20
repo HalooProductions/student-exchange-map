@@ -373,59 +373,58 @@ function findSchool(school) {
 
       google.maps.event.addListener(marker, 'click', function() {
 
-      $.ajax({
-        method: "GET",
-        url: "api/getdepartments.php?school=" + school.id
-      }).done(function(response)  {
-        var deps = JSON.parse(response);
-        var depStr = '';
-        for (var i = deps.length - 1; i >= 0; i--) {
-          depStr += deps[i].name;
-          if(i > 0)
-          {
-            depStr += '<br>';
-          } 
-        }
-        var contentString =
-        '<h3>' + school.name + '</h3>'+
-        '<p>' + school.country + ', ' + school.city + '<h4 style="margin-top: 0px; margin-bottom: 0px;">Alat:</h4>' +'</p>' + depStr + '</p>' +
-        '<button id="stories-btn" class="ui button">Stories</button>'
-        ;
+        $.ajax({
+          method: "GET",
+          url: "api/getdepartments.php?school=" + school.id
+        }).done(function(response)  {
+          var deps = JSON.parse(response);
+          var depStr = '';
+          for (var i = deps.length - 1; i >= 0; i--) {
+            depStr += deps[i].name;
+            if(i > 0)
+            {
+              depStr += '<br>';
+            } 
+          }
+          var contentString =
+          '<h3>' + school.name + '</h3>'+
+          '<p>' + school.country + ', ' + school.city + '<h4 style="margin-top: 0px; margin-bottom: 0px;">Alat:</h4>' +'</p>' + depStr + '</p>' +
+          '<button id="stories-btn" class="ui button">Stories</button>'
+          ;
 
-        google.maps.event.addListener(marker, 'click', function() {
-          infowindow.close(map, marker);
-        });
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.close(map, marker);
+          });
 
-        var infowindow = new google.maps.InfoWindow({
-            content: contentString
-        });
+          var infowindow = new google.maps.InfoWindow({
+              content: contentString
+          });
 
-        infowindow.open(map, marker);
-      });
-      
+          infowindow.open(map, marker);
 
-        setTimeout(function() {
-          $('#stories-btn').click(function() {
-            $('#expschool').text(school.name);
-            $('#expcountry').text(school.country);
-            $('#expcity').text(school.city);
-            $.ajax({
-              method: "GET",
-              url: "api/getExp.php?school=" + school.id
-            }).done(function(response) {
-              var exp = JSON.parse(response);
-              $('.experience-link').remove();
-              for (var i = 0, j = exp.length; i < j; i++) {
-                $('#pdf-content').append('<a class="experience-link" data-url="' + exp[i].url + '" href="#">' + exp[i].writer + '</a>');
-              }
-              $('#experience-modal').modal('show');
-              $('.experience-link').click(function(){
-                $('#experience-modal').modal('hide');
-                loadPDF(document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + '/pdfs/' + $(this).data('url'));
+          setTimeout(function() {
+            $('#stories-btn').click(function() {
+              $('#expschool').text(school.name);
+              $('#expcountry').text(school.country);
+              $('#expcity').text(school.city);
+              $.ajax({
+                method: "GET",
+                url: "api/getExp.php?school=" + school.id
+              }).done(function(response) {
+                var exp = JSON.parse(response);
+                $('.experience-link').remove();
+                for (var i = 0, j = exp.length; i < j; i++) {
+                  $('#pdf-content').append('<a class="experience-link" data-url="' + exp[i].url + '" href="#">' + exp[i].writer + '</a>');
+                }
+                $('#experience-modal').modal('show');
+                $('.experience-link').click(function(){
+                  $('#experience-modal').modal('hide');
+                  loadPDF(document.baseURI.substring(0, document.baseURI.lastIndexOf('/') + 1) + '/pdfs/' + $(this).data('url'));
+                });
               });
             });
-          });
-        }, 500);
+          }, 500);
+        });
       });
     }
   });
