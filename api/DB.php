@@ -3,8 +3,8 @@
 class DB 
 {
 	var $dbname = 'projekti2_2016_syksy_halooproductions';
-	var $loginName = 'dbadmin16shp';
-	var $password = 'ESJXwnEqxvZY5CNP';
+	var $loginName = '';
+	var $password = '';
 	var $db;
 
 	function connect() {
